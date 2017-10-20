@@ -8,7 +8,11 @@
         ],
         [
             "transform-class-properties"
-        ]
+        ],
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
   ],
   "presets": [
         "es2015",
