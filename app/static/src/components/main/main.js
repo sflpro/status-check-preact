@@ -15,20 +15,19 @@ export default class Main extends Component {
         });
     }
 
-    render(props, state) {
-        const employees = props.employees.sort((a,b) => {
-            return a[state.sortBy]>b[state.sortBy]
+    render(props, state) { 
+        props.employees.sort((a, b) => {
+            if(state.sortBy == "lastStatusChange") b = [a, a = b][0];
+            return a[state.sortBy] > b[state.sortBy] ? 1 : a[state.sortBy] == b[state.sortBy] ? 0 : -1;
         });
-
+        
         return (
             <main>
                 <select onChange={(e) => this.handleSortChange(e.target.value)}>
                     <option value="fullName">Name</option>
                     <option value="lastStatusChange">Last status</option>
                 </select>
-                <div>
-                    <EmployeesList employees={employees}/>
-                </div>
+                <EmployeesList employees={props.employees}/>
             </main>
         );
     }
