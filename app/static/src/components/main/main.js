@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import {h, Component} from 'preact';
 
 import EmployeesList from './../employeeList/employeesList';
 
@@ -6,7 +6,7 @@ import './main.css';
 
 export default class Main extends Component {
     state = {
-        sortBy: "fullName" 
+        sortBy: "fullName"
     }
 
     handleSortChange = (sort) => {
@@ -15,12 +15,12 @@ export default class Main extends Component {
         });
     }
 
-    render(props, state) { 
+    render(props, state) {
         props.employees.sort((a, b) => {
-            if(state.sortBy == "lastStatusChange") b = [a, a = b][0];
+            if (state.sortBy == "lastStatusChange") b = [a, a = b][0];
             return a[state.sortBy] > b[state.sortBy] ? 1 : a[state.sortBy] == b[state.sortBy] ? 0 : -1;
         });
-        
+
         return (
             <main>
                 <select onChange={(e) => this.handleSortChange(e.target.value)}>

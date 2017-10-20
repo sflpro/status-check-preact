@@ -7,7 +7,6 @@ export default class StaffService {
             xhttp.onload = () => {
                 if (xhttp.status == 200 || xhttp.status == 202) {
                     const staff = JSON.parse(xhttp.responseText);
-                    console.log('sfdsfd', staff);
                     res(staff);
                 } else {
                     rej('lllllll');

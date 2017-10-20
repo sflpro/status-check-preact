@@ -1,14 +1,16 @@
 .employee {
     padding: 6px;
 }
+
 .employee__wrapper {
     padding: 11px 11px 11px 87px;
     position: relative;
-	height: 81px;
-	border-radius: 5px;
-	background-color: #ffffff;
-	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.06);
+    height: 81px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.06);
 }
+
 .employee__avatar {
     position: absolute;
     top: 11px;
@@ -18,17 +20,20 @@
     border-radius: 30px;
     display: block;
 }
+
 .employee__name {
     margin: 0;
     padding: 5px 0;
     font-size: 1.6rem;
 }
+
 .employee__date {
     margin: 0;
     padding: 0;
     font-size: 1.6rem;
     color: #9fa3af;
 }
+
 .employee__subscribe {
     position: absolute;
     top: 12px;
@@ -41,6 +46,7 @@
     border: solid 1px #e7e8eb;
     background: none;
 }
+
 .employee__subscribe-icon {
     display: block;
 }
@@ -49,6 +55,7 @@
     main {
         padding: 12px;
     }
+
     .employee {
         padding: 12px;
         width: 50%;
@@ -57,14 +64,14 @@
 }
 
 .icon {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
 }
 
-.clear{
+.clear {
     clear: both;
 }
