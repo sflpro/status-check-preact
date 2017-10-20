@@ -1181,7 +1181,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(7);
+var	fixUrls = __webpack_require__(8);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1505,32 +1505,18 @@ function updateLink (link, options, obj) {
 
 var _preact = __webpack_require__(0);
 
-var _header = __webpack_require__(4);
+var _app = __webpack_require__(4);
 
-var _header2 = _interopRequireDefault(_header);
+var _app2 = _interopRequireDefault(_app);
 
-__webpack_require__(8);
+__webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var bar = 'heyeeeeeey';
 
 (0, _preact.render)((0, _preact.h)(
     'div',
     { id: 'foo' },
-    (0, _preact.h)(_header2.default, { foo: bar }),
-    (0, _preact.h)(
-        'span',
-        null,
-        'Hello, world!'
-    ),
-    (0, _preact.h)(
-        'button',
-        { onClick: function onClick(e) {
-                return bar = 'asjdflkajshdflkjahsdkf';
-            } },
-        'Click Me'
-    )
+    (0, _preact.h)(_app2.default, null)
 ), document.body);
 
 /***/ }),
@@ -1548,7 +1534,169 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _preact = __webpack_require__(0);
 
-__webpack_require__(5);
+var _Header = __webpack_require__(5);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _Sort = __webpack_require__(9);
+
+var _Sort2 = _interopRequireDefault(_Sort);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var App = function (_Component) {
+    _inherits(App, _Component);
+
+    function App() {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+        _this.store = {
+            status: 'in',
+            sortBy: 'fullName',
+            employees: []
+        };
+        _this.handleHeaderChange('in');
+        return _this;
+    }
+
+    /*init(state){
+        this.setState(state);
+    }*/
+
+
+    _createClass(App, [{
+        key: "handleSortChange",
+        value: function handleSortChange(value) {
+            //     this.store.sortBy
+            this.setState({ sortBy: value });
+        }
+    }, {
+        key: "getStaff",
+        value: function getStaff() {
+            console.log('staff');
+            return new Promise(function (res, rej) {
+                /*const xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "api/staff", true);
+                xhttp.send();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        const staff = JSON.parse(this.responseText);
+                        console.log(staff);
+                        res(staff)
+                    }
+                };*/
+                setTimeout(function () {
+                    res([{ "fullName": "JohnDoe", "status": "in", "id": "7", "lastStatusChange": "2017-10-19T10:24:15.000Z" }, { "fullName": "JohnDoe5", "status": "out", "id": "27", "lastStatusChange": "2017-10-19T10:22:15.000Z" }, { "fullName": "JohnDoe4", "status": "in", "id": "27", "lastStatusChange": "2017-10-19T10:21:15.000Z" }, { "fullName": "JohnDoe3", "status": "out", "id": "27", "lastStatusChange": "2017-10-19T10:32:15.000Z" }, { "fullName": "JohnDoe1", "status": "out", "id": "27", "lastStatusChange": "2017-10-19T10:12:15.000Z" }]);
+                }, 4000);
+            });
+        }
+    }, {
+        key: "handleHeaderChange",
+        value: function handleHeaderChange(status) {
+            console.log(status);
+
+            var self = this;
+            var staff = [];
+            console.log(this.fetchEmployees());
+            /*const staff = this.fetchEmployees()().then(e=>{
+                self.setState({status:status,employees:e})
+            });*/
+            console.log(staff);
+            //self.setState({status:status,employees:this.fetchEmployees()});
+
+            //const status = this.state.status=='out'?'in':'out';
+            /*this.getStaff().then(function (res) {
+                self.setState({status:status,employees:res});
+            })*/
+            //this.init({});
+        }
+    }, {
+        key: "fetchEmployees",
+        value: function fetchEmployees() {
+            var _this2 = this;
+
+            console.log('fetching..');
+            var self = this;
+            return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return self.getStaff();
+
+                            case 2:
+                                return _context.abrupt("return", _context.sent);
+
+                            case 3:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, _this2);
+            }));
+
+            /*this.setState({employees:[
+                { "fullName":"JohnDoe", "status":"in", "id":"7", "lastStatusChange":"2017-10-19T10:24:15.000Z" },
+                { "fullName":"JohnDoe2", "status":"out", "id":"27", "lastStatusChange":"2017-10-19T10:22:15.000Z" }
+            ]});*/
+
+            /*  return [
+                  { "fullName":"JohnDoe", "status":"in", "id":"7", "lastStatusChange":"2017-10-19T10:24:15.000Z" },
+                  { "fullName":"JohnDoe5", "status":"out", "id":"27", "lastStatusChange":"2017-10-19T10:22:15.000Z" },
+                  { "fullName":"JohnDoe4", "status":"in", "id":"27", "lastStatusChange":"2017-10-19T10:21:15.000Z" },
+                  { "fullName":"JohnDoe3", "status":"out", "id":"27", "lastStatusChange":"2017-10-19T10:32:15.000Z" },
+                  { "fullName":"JohnDoe1", "status":"out", "id":"27", "lastStatusChange":"2017-10-19T10:12:15.000Z" }
+              ];*/
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this3 = this;
+
+            var employees = this.state.employees.filter(function (e) {
+                return e.status == _this3.state.status;
+            });
+            return (0, _preact.h)(
+                "div",
+                null,
+                (0, _preact.h)(_Header2.default, { nav: this.state.status, handleHeaderChange: this.handleHeaderChange.bind(this) }),
+                (0, _preact.h)(_Sort2.default, { employees: employees, handleSortChange: this.handleSortChange.bind(this) })
+            );
+        }
+    }]);
+
+    return App;
+}(_preact.Component);
+
+exports.default = App;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _preact = __webpack_require__(0);
+
+__webpack_require__(6);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1567,13 +1715,37 @@ var Header = function (_Component) {
 
     _createClass(Header, [{
         key: 'render',
-        value: function render(_ref) {
-            var foo = _ref.foo;
+
+        /*constructor(){
+            super();
+            console.log(this)
+         }*/
+
+        value: function render() {
+            var props = this.props;
+            console.log(props);
 
             return (0, _preact.h)(
-                'div',
+                'header',
                 { 'class': 'header' },
-                foo
+                (0, _preact.h)(
+                    'nav',
+                    { className: 'navigation' },
+                    (0, _preact.h)(
+                        'a',
+                        { onClick: function onClick(_) {
+                                return props.handleHeaderChange('in');
+                            }, className: 'navigation__item navigation__item_active' },
+                        'In Office'
+                    ),
+                    (0, _preact.h)(
+                        'a',
+                        { onClick: function onClick(_) {
+                                return props.handleHeaderChange('out');
+                            }, className: 'navigation__item' },
+                        'Out of Office'
+                    )
+                )
             );
         }
     }]);
@@ -1584,13 +1756,13 @@ var Header = function (_Component) {
 exports.default = Header;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1604,8 +1776,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./index.css");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./header.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./header.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -1615,7 +1787,7 @@ if(false) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);
@@ -1623,13 +1795,13 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, ".header {\n    background-color: blanchedalmond;\n}", ""]);
+exports.push([module.i, "header {\n    height: 50px;\n    background-color: #ffffff;\n    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);\n}\n.navigation {\n    height: 100%;\n}\n.navigation__item {\n    width: 50%;\n    height: 100%;\n    display: inline-block;\n    padding: 0 11px;\n    margin: 0;\n    float: left;\n    font-size: 1.8rem;\n    color: #505b69;\n    text-decoration: none;\n}\n.navigation__item_active {\n    border-bottom: 4px solid #ffc80a;\n    font-weight: bold;\n    color: #000;\n}\n\n@supports (display: flex) {\n    .navigation__item {\n        display: flex;\n        justify-content: center;\n        align-items: center;\n    }\n}\n\n@media screen and (min-width: 768px) {\n    header {\n        height: 80px;\n    }\n    .navigation {\n        margin-left: 53px;\n    }\n    .navigation__item {\n        width: auto;\n    }\n    .navigation__item:first-child {\n        margin-right: 40px;\n    }\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 
@@ -1724,13 +1896,278 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _preact = __webpack_require__(0);
+
+var _EmployeesList = __webpack_require__(10);
+
+var _EmployeesList2 = _interopRequireDefault(_EmployeesList);
+
+__webpack_require__(13);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Sort = function (_Component) {
+    _inherits(Sort, _Component);
+
+    function Sort() {
+        _classCallCheck(this, Sort);
+
+        var _this = _possibleConstructorReturn(this, (Sort.__proto__ || Object.getPrototypeOf(Sort)).call(this));
+
+        _this.state.sortBy = 'fullName';
+        return _this;
+    }
+
+    _createClass(Sort, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var props = this.props;
+            console.log('rendering sort');
+            var handleSortChange = function handleSortChange(ev) {
+                console.log(ev);
+                //props.handleSortChange(ev.target.value);
+                _this2.setState({ sortBy: ev.target.value });
+            };
+            var sortBy = this.state.sortBy;
+            var list = this.props.employees.sort(function (a, b) {
+                return a[sortBy] > b[sortBy];
+            });
+
+            return (0, _preact.h)(
+                'div',
+                null,
+                (0, _preact.h)(
+                    'div',
+                    null,
+                    (0, _preact.h)(
+                        'select',
+                        { onChange: handleSortChange },
+                        (0, _preact.h)(
+                            'option',
+                            { value: 'fullName' },
+                            'Name'
+                        ),
+                        (0, _preact.h)(
+                            'option',
+                            { value: 'lastStatusChange' },
+                            'Last status'
+                        )
+                    )
+                ),
+                (0, _preact.h)(
+                    'div',
+                    null,
+                    (0, _preact.h)(_EmployeesList2.default, { list: list })
+                )
+            );
+        }
+    }]);
+
+    return Sort;
+}(_preact.Component);
+
+exports.default = Sort;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _preact = __webpack_require__(0);
+
+__webpack_require__(11);
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EmployeesList = function (_Component) {
+    _inherits(EmployeesList, _Component);
+
+    function EmployeesList() {
+        _classCallCheck(this, EmployeesList);
+
+        return _possibleConstructorReturn(this, (EmployeesList.__proto__ || Object.getPrototypeOf(EmployeesList)).apply(this, arguments));
+    }
+
+    _createClass(EmployeesList, [{
+        key: 'render',
+
+        /*constructor(){
+            super();
+            console.log(this)
+         }*/
+
+        value: function render() {
+            var props = this.props;
+            var list = props.list.map(function (employee) {
+                return (0, _preact.h)(
+                    'article',
+                    { className: 'employee' },
+                    (0, _preact.h)(
+                        'div',
+                        { className: 'employee__wrapper' },
+                        (0, _preact.h)('img', { className: 'employee__avatar', src: '' }),
+                        (0, _preact.h)(
+                            'h2',
+                            { className: 'employee__name' },
+                            employee.fullName
+                        ),
+                        (0, _preact.h)(
+                            'p',
+                            { className: 'employee__date' },
+                            employee.lastStatusChange
+                        ),
+                        (0, _preact.h)(
+                            'button',
+                            { className: 'employee__subscribe' },
+                            's'
+                        )
+                    )
+                );
+            });
+
+            return (0, _preact.h)(
+                'div',
+                null,
+                list
+            );
+        }
+    }]);
+
+    return EmployeesList;
+}(_preact.Component);
+
+exports.default = EmployeesList;
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(9);
+var content = __webpack_require__(12);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./employeesList.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./employeesList.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(14);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(2)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./sort.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./sort.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(16);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -1755,7 +2192,7 @@ if(false) {
 }
 
 /***/ }),
-/* 9 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(undefined);
@@ -1763,7 +2200,7 @@ exports = module.exports = __webpack_require__(1)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n    margin: 0;\n    padding: 0;\n    background-color: aquamarine;\n}", ""]);
+exports.push([module.i, "* {\n    box-sizing: border-box;\n}\nhtml {\n    font-size: 65%;\n    background-color: #fff;\n}\nbody {\n    margin: 0;\n    padding: 0;\n    position: relative;\n    min-height: 100vh;\n    background-color: #f0f0f0;\n    font-family: sans-serif;\n}\n\n\nmain {\n    padding: 6px;\n}\n\nselect{\n    border: 1px solid #eee;\n    border-radius: 5px;\n    padding: 7px;\n    width: 100%;\n}\n\n.employee {\n    padding: 6px;\n}\n.employee__wrapper {\n    padding: 11px 11px 11px 87px;\n    position: relative;\n    height: 81px;\n    border-radius: 5px;\n    background-color: #ffffff;\n    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.06);\n}\n.employee__avatar {\n    position: absolute;\n    top: 11px;\n    left: 11px;\n    width: 60px;\n    height: 60px;\n    border-radius: 30px;\n    display: block;\n}\n.employee__name {\n    margin: 0;\n    padding: 5px 0;\n    font-size: 1.6rem;\n}\n.employee__date {\n    margin: 0;\n    padding: 0;\n    font-size: 1.6rem;\n    color: #9fa3af;\n}\n.employee__subscribe {\n    position: absolute;\n    top: 12px;\n    right: 12px;\n    display: block;\n    width: 26px;\n    height: 26px;\n    padding: 5px;\n    border-radius: 5px;\n    border: solid 1px #e7e8eb;\n    background: none;\n}\n.employee__subscribe-icon {\n    display: block;\n}\n\n@media screen and (min-width: 768px) {\n    main {\n        padding: 12px;\n    }\n    .employee {\n        padding: 12px;\n        width: 50%;\n        float: left;\n    }\n}\n\n.icon {\n    display: inline-block;\n    width: 1em;\n    height: 1em;\n    stroke-width: 0;\n    stroke: currentColor;\n    fill: currentColor;\n}\n\n.clear{\n    clear: both;\n}", ""]);
 
 // exports
 

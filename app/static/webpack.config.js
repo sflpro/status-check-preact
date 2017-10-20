@@ -22,8 +22,7 @@ const config = {
             }
         ]
     }, devServer: {
-        contentBase: '../public',
-        compress: true
+        contentBase: '../public'
     }
 };
 

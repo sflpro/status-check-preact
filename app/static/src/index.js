@@ -1,15 +1,12 @@
 import { h, render } from 'preact';
 
-import Header from './components/header';
+import App from './components/app';
 
 import './index.css';
 
-let bar = 'heyeeeeeey';
 
 render((
     <div id="foo">
-        <Header foo={bar} />
-        <span>Hello, world!</span>
-        <button onClick={ e => bar = 'asjdflkajshdflkjahsdkf' }>Click Me</button>
+        <App/>
     </div>
 ), document.body);
