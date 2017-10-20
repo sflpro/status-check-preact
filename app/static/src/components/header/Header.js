@@ -3,14 +3,6 @@ import { h, Component } from 'preact';
 import './header.css';
 
 export default class Header extends Component {
-    /*constructor(){
-        super();
-        console.log(this)
-
-    }*/
-
-
-
     render() {
         const props = this.props;
         console.log(props);

@@ -15,7 +15,6 @@ export default class Sort extends Component {
         console.log('rendering sort');
         const handleSortChange=(ev)=>{
             console.log(ev);
-            //props.handleSortChange(ev.target.value);
             this.setState({sortBy:ev.target.value});
         };
         const  sortBy = this.state.sortBy;
