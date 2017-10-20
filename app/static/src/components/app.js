@@ -41,8 +41,14 @@ export default class App extends Component{
         })
 
     }
+    handleStatusChange = (status) => {
+        this.setState({
+            status: status
+        });
 
-    handleStatusChange(status){
+    }
+
+    handleStatusChange1(status){
 
         this.setState({
             status: status
@@ -93,7 +99,7 @@ export default class App extends Component{
         const employees = this.state.employees.filter(e=>e.status==this.state.status);
         return(
             <div>
-                <Header status={state.status} onStatusChange={() => handleStatusChange()} />
+                <Header status={state.status} onStatusChange={this.handleStatusChange} />
                 <Main employees={employees} handleSortChange={this.handleSortChange.bind(this)} />
             </div>
         )

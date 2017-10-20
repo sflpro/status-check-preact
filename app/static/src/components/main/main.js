@@ -2,16 +2,16 @@ import { h, Component } from 'preact';
 
 import EmployeesList from './../employeeList/EmployeesList';
 
-import './sort.css';
+import './main.css';
 
-export default class Sort extends Component {
+export default class Main extends Component {
     constructor(){
         super();
         this.state.sortBy = 'fullName';
     }
 
-    render() {
-        const props = this.props;
+    render(props) {
+      
         console.log('rendering sort');
         const handleSortChange=(ev)=>{
             console.log(ev);
