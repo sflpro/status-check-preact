@@ -1,7 +1,7 @@
 const config = {
-    entry: './src/index.js',
+    entry: './static/src/index.js',
     output: {
-        path: `${__dirname}/../public/scripts/`,
+        path: `${__dirname}/public/scripts/`,
         filename: 'bundle.js'
     },
     module: {
@@ -23,7 +23,7 @@ const config = {
             }
         ]
     }, devServer: {
-        contentBase: '../public'
+        contentBase: 'public'
     }
 };
 
