@@ -4,9 +4,5 @@ import App from './components/app';
 
 import './index.css';
 
+render(<App />, document.body);
 
-render((
-    <div id="foo">
-        <App/>
-    </div>
-), document.body);

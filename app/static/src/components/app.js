@@ -1,31 +1,22 @@
 import { h, Component } from 'preact';
 
-import Header from "./header/Header";
-import Sort from "./sort/Sort";
+import Header from "./header/header";
+import Main from "./main/main";
 
 export default class App extends Component{
-
-
-    constructor(){
-        super();
-
-        this.store = {
-            status:'in',
-            sortBy:'fullName',
-            employees:[]
-        };
-        this.handleHeaderChange('in');
+    state = {
+        status: 'in',
+        sortBy:'fullName',
+        employees:[]
     }
+   
 
-    /*init(state){
-        this.setState(state);
-    }*/
     handleSortChange(value){
    //     this.store.sortBy
         this.setState({sortBy:value});
     }
 
-     getStaff(){
+    getStaff(){
         console.log('staff');
         return new Promise(function (res,rej) {
             /*const xhttp = new XMLHttpRequest();
@@ -51,8 +42,12 @@ export default class App extends Component{
 
     }
 
-    handleHeaderChange(status){
-        console.log(status);
+    handleStatusChange(status){
+
+        this.setState({
+            status: status
+        });
+       
 
         const self = this;
         const staff= [];
@@ -93,12 +88,13 @@ export default class App extends Component{
 
 
 
-    render(){
+    render(props, state){
+        console.log(state.status);
         const employees = this.state.employees.filter(e=>e.status==this.state.status);
         return(
             <div>
-                <Header nav={this.state.status} handleHeaderChange={this.handleHeaderChange.bind(this)} />
-                <Sort employees={employees} handleSortChange={this.handleSortChange.bind(this)} />
+                <Header status={state.status} onStatusChange={() => handleStatusChange()} />
+                <Main employees={employees} handleSortChange={this.handleSortChange.bind(this)} />
             </div>
         )
     }

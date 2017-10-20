@@ -7,7 +7,8 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.js$/, use: ['babel-loader'], exclude: /(node_modules)/
+                test: /\.js$/, use: ['babel-loader'], 
+                exclude: /(node_modules)/,
             }, {
                 test: /\.css$/, use: [
                     { loader: "style-loader" },
@@ -18,7 +19,7 @@ const config = {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: 'eslint-loader',
-                options: {}
+                options: {},
             }
         ]
     }, devServer: {
