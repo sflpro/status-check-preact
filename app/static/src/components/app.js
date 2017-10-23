@@ -43,9 +43,10 @@ export default class App extends Component {
 
     render(props, state) {
         if (!state.employees.loaded) {
-            StaffService.get().then(employees => {
+            StaffService.get("api/staff").then( employees => {
                 this.setState({employees: {list: employees, loaded: true}})
             });
+
             return (
                 <div>Loading ...</div>
             );
