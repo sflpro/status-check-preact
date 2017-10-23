@@ -3,23 +3,43 @@ import {h, Component} from 'preact';
 import Header from "./header/header";
 import Main from "./main/main";
 
+
 import StaffService from "./../services/staffService";
 
+const sortBy = {
+    FULLNAME: 'fullName',
+    LASTSTATUSCHANGE: 'lastStatusChange'
+}
+
+const filterBy = {
+    IN: 'in',
+    OUT: 'out'
+}
+
 export default class App extends Component {
+
     state = {
         status: 'in',
         employees: {
             loaded: false,
             list: []
         },
+        current_filter: filterBy.IN,
+        current_sort: sortBy.FULLNAME,
     };
 
 
-    handleStatusChange = (status) => {
+    handleStatusChange = (filter) => {
         this.setState({
-            status: status
+            current_filter: filter
         });
     };
+
+    handleSortChange = (sort) => {
+        this.setState({
+            current_sort: sort
+        });
+    }
 
     render(props, state) {
         if (!state.employees.loaded) {
@@ -30,14 +50,17 @@ export default class App extends Component {
                 <div>Loading ...</div>
             );
         }
-        const employees = state.employees.list.filter(e => e.status === state.status);
+        const employees = state.employees.list.filter(e => e.status === state.current_filter);
+        employees.sort((a, b) => {
+            if (state.current_sort == "lastStatusChange") b = [a, a = b][0];
+            return a[state.current_sort] > b[state.current_sort] ? 1 : a[state.current_sort] == b[state.current_sort] ? 0 : -1;
+        });
+        
         return (
             <div>
-                <Header status={state.status} onStatusChange={this.handleStatusChange}/>
-                <Main employees={employees}/>
+                <Header current_filter={state.current_filter} onStatusChange={this.handleStatusChange}/>
+                <Main current_sort={state.current_sort} onSortChange={this.handleSortChange} employees={employees}/>
             </div>
         );
     }
-
-
 }
