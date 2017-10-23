@@ -6,15 +6,16 @@ import Main from "./main/main";
 
 import StaffService from "./../services/staffService";
 
+const requests = StaffService.getInstance() ;
 const sortBy = {
     FULLNAME: 'fullName',
     LASTSTATUSCHANGE: 'lastStatusChange'
-}
+};
 
 const filterBy = {
     IN: 'in',
     OUT: 'out'
-}
+};
 
 export default class App extends Component {
 
@@ -39,22 +40,21 @@ export default class App extends Component {
         this.setState({
             current_sort: sort
         });
-    }
+    };
 
     render(props, state) {
         if (!state.employees.loaded) {
-            StaffService.get("api/staff").then( employees => {
+            requests.get().then(employees => {
                 this.setState({employees: {list: employees, loaded: true}})
             });
-
             return (
                 <div>Loading ...</div>
             );
         }
         const employees = state.employees.list.filter(e => e.status === state.current_filter);
         employees.sort((a, b) => {
-            if (state.current_sort == "lastStatusChange") b = [a, a = b][0];
-            return a[state.current_sort] > b[state.current_sort] ? 1 : a[state.current_sort] == b[state.current_sort] ? 0 : -1;
+            if (state.current_sort === "lastStatusChange") b = [a, a = b][0];
+            return a[state.current_sort] > b[state.current_sort] ? 1 : a[state.current_sort] === b[state.current_sort] ? 0 : -1;
         });
         
         return (
