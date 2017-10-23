@@ -1,11 +1,14 @@
 import {h, render} from 'preact';
 
 import App from './components/app';
-import StaffService from "./services/staffService";
 
 
 import './index.css';
 
+
+render(<App />, document.body);
+
+/*
 StaffService.get().then(
     emp => {
         render(<App employees={emp}/>, document.body);
@@ -15,7 +18,7 @@ StaffService.get().then(
     }
 );
 
-
+*/
 
 
 
