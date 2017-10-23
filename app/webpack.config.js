@@ -4,6 +4,7 @@ const config = {
         path: `${__dirname}/public/scripts/`,
         filename: 'bundle.js'
     },
+    watch: true,
     module: {
         rules: [
             {
