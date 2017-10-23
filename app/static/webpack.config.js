@@ -1,7 +1,7 @@
 const config = {
     entry: './static/src/index.js',
     output: {
-        path: `${__dirname}/public/scripts/`,
+        path: `${__dirname}/../public/scripts/`,
         filename: 'bundle.js'
     },
     watch: true,
