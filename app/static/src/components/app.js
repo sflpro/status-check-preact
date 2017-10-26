@@ -2,14 +2,16 @@ import {h, Component} from 'preact';
 
 import Header from "./header/header";
 import Main from "./main/main";
+import Sort from "./sort/sort";
+import Loading from "./loading/loading";
 
 
 import StaffService from "./../services/staffService";
 
 const requests = StaffService.getInstance() ;
 const sortBy = {
-    FULLNAME: 'fullName',
-    LASTSTATUSCHANGE: 'lastStatusChange'
+    FULL_NAME: 'fullName',
+    LAST_STATUS_CHANGE: 'lastStatusChange'
 };
 
 const filterBy = {
@@ -19,48 +21,54 @@ const filterBy = {
 
 export default class App extends Component {
 
-    state = {
-        status: 'in',
-        employees: {
-            loaded: false,
-            list: []
-        },
-        current_filter: filterBy.IN,
-        current_sort: sortBy.FULLNAME,
-    };
 
+    constructor(){
+        super();
+        this.state = {
+            employees: null,
+            filteredEmployees:[],
+            currentFilter: filterBy.IN,
+            currentSort: sortBy.FULL_NAME,
+        };
+
+        this.updateEmployees();
+    }
+
+    updateEmployees(){
+        return fetch('api/staff').then(res=>{
+            return res.json().then(emp=>{
+                this.filterEmployees(undefined,undefined,emp);
+            });
+        });
+    }
 
     handleStatusChange = (filter) => {
-        this.setState({
-            current_filter: filter
-        });
+        this.filterEmployees(this.state.currentSort,filter);
     };
 
-    handleSortChange = (sort) => {
-        this.setState({
-            current_sort: sort
+    filterEmployees(sort =this.state.currentSort,filter=this.state.currentFilter,employees=this.state.employees){
+        const filteredEmployees = employees.filter(e => e.status === filter);
+        filteredEmployees.sort((a, b) => {
+            if (sort === "lastStatusChange") b = [a, a = b][0];
+            return a[sort] > b[sort] ? 1 : a[sort] === b[sort] ? 0 : -1;
         });
+        this.setState({filteredEmployees:filteredEmployees,employees:employees,currentFilter:filter,currentSort:sort})
+    }
+    handleSortChange = (sort) => {
+        this.filterEmployees(sort,this.state.currentFilter);
     };
 
     render(props, state) {
-        if (!state.employees.loaded) {
-            requests.get().then(employees => {
-                this.setState({employees: {list: employees, loaded: true}})
-            });
-            return (
-                <div>Loading ...</div>
-            );
-        }
-        const employees = state.employees.list.filter(e => e.status === state.current_filter);
-        employees.sort((a, b) => {
-            if (state.current_sort === "lastStatusChange") b = [a, a = b][0];
-            return a[state.current_sort] > b[state.current_sort] ? 1 : a[state.current_sort] === b[state.current_sort] ? 0 : -1;
-        });
-        
         return (
             <div>
-                <Header current_filter={state.current_filter} onStatusChange={this.handleStatusChange}/>
-                <Main current_sort={state.current_sort} onSortChange={this.handleSortChange} employees={employees}/>
+                {state.employees&&(
+                    <div>
+                        <Header currentFilter={state.currentFilter} onStatusChange={this.handleStatusChange}/>
+                        <Sort currentSort={state.currentSort} onSortChange={this.handleSortChange}/>
+                        <Main  employees={state.filteredEmployees}/>
+                    </div>
+                    )}
+                {state.employees === null && (<Loading />)}
             </div>
         );
     }
