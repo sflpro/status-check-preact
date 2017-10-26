@@ -7,7 +7,7 @@ import './main.css';
 export default class Main extends Component {
     render( {employees} ) {
         return (
-                <EmployeesList employees={employees}/>
+            <EmployeesList employees={employees} />
         );
     }
 }

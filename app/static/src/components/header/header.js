@@ -3,7 +3,7 @@ import {h, Component} from 'preact';
 import './header.css';
 
 export default class Header extends Component {
-    render({ currentFilter,onStatusChange, }) {
+    render({ currentFilter, onStatusChange}) {
         return (
             <header class="header">
                 <nav class="navigation" id="navigation">
