@@ -1,9 +1,16 @@
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 const config = {
     entry: './static/src/index.js',
     output: {
         path: `${__dirname}/../public/scripts/`,
         filename: 'bundle.js'
     },
+    plugins:[
+        new UglifyJSPlugin({
+            sourceMap:true
+        })
+    ],
     watch: true,
     devtool: 'source-map',
 
