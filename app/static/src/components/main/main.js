@@ -5,9 +5,9 @@ import EmployeesList from './../employeeList/employeesList';
 import './main.css';
 
 export default class Main extends Component {
-    render( {employees} ) {
+    render( {employees, onSubscribe} ) {
         return (
-            <EmployeesList employees={employees} />
+            <EmployeesList employees={employees} onSubscribe={onSubscribe} />
         );
     }
 }

@@ -4,7 +4,8 @@ import App from './components/app';
 
 import './index.css';
 
-render(<App />, document.body);
+render(<App/>, document.body);
+
 
 
 
