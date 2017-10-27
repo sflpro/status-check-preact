@@ -33,7 +33,6 @@ export default class App extends Component {
 
 			swSupport: null,
 			swRegistration: null,
-			accounts: [],
 		});
 
 		this.getEmployeesList().then(employees => {
@@ -50,22 +49,25 @@ export default class App extends Component {
 	}
 
 	updateStatus = (support, subscription) => {
-		this.getSubscribers(subscription);
+		this.getSubscribers(subscription).then(employees => {
+			console.log(employees);
+			this.setState({employees})
+		});
 	}
 
 	updateSubscription = (subscription, id) => {
 		const subscribers = [];
-		const accounts = this.state.accounts;
-		for(index = 0; index < accounts; index++){
-			if(accounts[index].id == id){
-				accounts[index].subscribed = !accounts[index].subscribed;
+		const employees = this.state.employees;
+		for(let index = 0; index < employees.length; index++){
+			if(employees[index].id == id){
+				employees[index].subscribed = !employees[index].subscribed || true;
 			}
-			if(accounts[index].subscribed){
-				subscribers.push(accounts[index].id);
+			if(employees[index].subscribed){
+				subscribers.push(employees[index].id);
 			}
 		}
-		console.log(subscribers);
-		//this.setSubscribers(subscribers, subscription)
+
+		this.setSubscribers(subscribers, subscription)
 			//.then();
 	}
 
@@ -81,35 +83,29 @@ export default class App extends Component {
 	}
 
 	getSubscribers = (subscription) => {
-		fetch("api/subscriptions?key=" + subscription).then(res => {
+		 return fetch("api/subscriptions?key=" + subscription).then(res => {
 			console.log(res);
-			const response = res.json().then( (subscribers) => {
-					console.log(res);
-					alert(res.status);
-
-						const accounts = this.state.accounts;
-						for (index = 0; index < accounts.length; index++) {
-							if (subscribers.indexOf(accounts[index].id) != -1) {
-								accounts[index].subscribed = true;
-							}
-						}
-						return accounts;
-
-
-
-				}, (err) => {
-					console.log(err);
+			//console.log(res.json());
+			let subscribers = [199];  //TODO
+			const employees = this.state.employees;
+			for (let index = 0; index < employees.length; index++) {
+				if (subscribers.indexOf(employees[index].id) != -1) {
+					employees[index].subscribed = true;
 				}
+			}
 
-			);
-
-
+			return employees;
 		})
 			//.catch(err => console.log(err));
 	}
 
 	setSubscribers = (subscribers, subscription) => {
-
+		console.log(subscription);
+		console.log(subscribers);
+		return fetch('api/subscriptions', {
+			method: 'POST',
+			body: JSON.stringify({key:subscription, value:subscribers})
+		}).then(res => console.log(res));
 	}
 
 
@@ -150,6 +146,7 @@ export default class App extends Component {
 	};
 
 	render({}, {currentFilter, currentSort, employees, swSupport}) {
+		console.log(employees);
 		return (
 			<div>
 				{employees.length > 0 && (
