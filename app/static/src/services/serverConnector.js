@@ -1,6 +1,6 @@
 export default class ServerConnector {
-    constructor() {
-        this.path = "";
+    constructor(path) {
+        this.path = path;
     }
 
     send(req) {

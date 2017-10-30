@@ -3,5 +3,5 @@ const fetch = require('./fetch');
 
 module.exports = {
     list,
-    fetch
+    fetch,
 };

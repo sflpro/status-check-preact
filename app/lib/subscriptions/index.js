@@ -1,5 +1,9 @@
+const watch = require('./watch');
+const set = require('./set');
+const get = require('./get');
+
 module.exports = {
-    watch: require('./watch'),
-    set: require('./set'),
-    get: require('./get')
+    watch,
+    set,
+    get,
 };

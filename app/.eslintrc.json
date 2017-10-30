@@ -1,6 +1,8 @@
 {
     "parser": "babel-eslint",
-    "extends": ["airbnb"],
+    "extends": [
+        "airbnb"
+    ],
     "env": {
         "browser": true,
         "node": true
@@ -50,7 +52,7 @@
                  "allowTemplateLiterals": true,
              }
          ],*/
-        "quotes": 0, // allowed both single and double qoutes
+        "quotes": 0,
         "semi": [
             2,
             "always"
@@ -62,10 +64,30 @@
                 "caughtErrors": "none"
             }
         ],
-        "no-nested-ternary": 1, // disallows nested ternary expressions
+        "no-nested-ternary": 1,
         "react/prefer-stateless-function": 1,
         "no-param-reassign": 1,
-        "react/no-unknown-property": [2, { "ignore": ["class", "for"] }],
-        "arrow-body-style": [1, "as-needed"]
+        "react/no-unknown-property": [
+            2,
+            {
+                "ignore": [
+                    "class",
+                    "for"
+                ]
+            }
+        ],
+        "arrow-body-style": [
+            1,
+            "as-needed"
+        ],
+        "no-plusplus": 1,
+        "no-restricted-syntax": 1,
+        "no-use-before-define": [
+            2,
+            {
+                "functions": false,
+                "classes": false
+            }
+        ]
     }
 }

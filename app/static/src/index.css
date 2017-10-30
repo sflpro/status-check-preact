@@ -16,10 +16,6 @@ body {
     font-family: sans-serif;
 }
 
-main {
-    padding: 6px;
-}
-
 select {
     border: 1px solid #eee;
     border-radius: 5px;

@@ -8,7 +8,7 @@ export default class EmployeesList extends Component {
     render({ employees }) {
         return (
             <div>
-                {employees.map((employee) => (
+                {employees.map(employee => (
                     <article class="employee">
                         <div class="employee__wrapper">
                             <img class="employee__avatar" src={`http://status.sflpro.com/assets/avatars/ ${employee.fullName.replace(" ", "-")} -50x50.jpg`} alt="" />

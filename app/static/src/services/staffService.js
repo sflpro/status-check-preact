@@ -1,9 +1,8 @@
 import ServerConnector from "./serverConnector";
 
 export default class StaffService extends ServerConnector {
-    constructor() {
-        super();
-        this.path = "api/staff";
+    constructor(path = "api/staff") {
+        super(path);
     }
 
     get() {
