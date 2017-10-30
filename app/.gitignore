@@ -2,4 +2,7 @@ node_modules
 static/node_modules
 .DS_Store
 .log
+public/scripts
+package-lock.json
+.idea/
 
