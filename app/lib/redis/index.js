@@ -2,6 +2,4 @@ const redis = require('redis');
 
 const client = redis.createClient('6379', 'redis');
 
-module.exports = () => {
-    return client;
-};
+module.exports = () => (client);

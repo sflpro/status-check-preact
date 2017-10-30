@@ -1,4 +1,7 @@
+const list = require('./list');
+const fetch = require('./fetch');
+
 module.exports = {
-    list: require('./list'),
-    fetch: require('./fetch')
-}
+    list,
+    fetch
+};

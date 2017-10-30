@@ -1,33 +1,36 @@
 {
-  "plugins": [
+    "plugins": [
         [
             "transform-react-jsx",
             {
-              "pragma": "h"
+                "pragma": "h"
             }
         ],
         [
             "transform-class-properties"
         ],
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
-    }]
-  ],
-  "presets": [
+        [
+            "transform-runtime",
+            {
+                "polyfill": false,
+                "regenerator": true
+            }
+        ]
+    ],
+    "presets": [
         "es2015",
-        "react", 
+        "react",
         "stage-0",
         [
-          "env",
-          {
-              "targets": {
-                  "ie": "9",
-                  "browsers": [
-                      "ie >= 8"
-                  ]
-              }
-          }
-      ]
-  ]
+            "env",
+            {
+                "targets": {
+                    "ie": "9",
+                    "browsers": [
+                        "ie >= 8"
+                    ]
+                }
+            }
+        ]
+    ]
 }

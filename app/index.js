@@ -3,11 +3,11 @@ const client = require('./lib/redis');
 const page = require('./lib/page');
 const employees = require('./lib/employees');
 const subscriptions = require('./lib/subscriptions');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use( bodyParser.json() );
+app.use(bodyParser.json());
 
 app.get('/', async (req, res, next) => {
     res.end(page());
@@ -17,20 +17,20 @@ app.get('/api/staff', async (req, res, next) => {
     try {
         res.end(await employees.list());
     } catch (e) {
-        res.end('something went wrong: \n', JSON.stringify(e))
+        res.end('something went wrong: \n', JSON.stringify(e));
     }
 });
 
 app.get('/api/subscriptions', async (req, res, next) => {
     try {
-        res.end(await subscriptions.get(req.query.key) );
+        res.end(await subscriptions.get(req.query.key));
     } catch (e) {
-        res.end('something went wrong: \n', JSON.stringify(e))
+        res.end('something went wrong: \n', JSON.stringify(e));
     }
 });
 
-app.put('/api/subscriptions', () => {
-    res.end("ok");
+app.put('/api/subscriptions', (req, res) => {
+    res.end('ok');
 });
 
 app.post('/api/subscriptions', (req, res, next) => {
@@ -40,17 +40,17 @@ app.post('/api/subscriptions', (req, res, next) => {
 app.use(express.static('public'));
 
 async function start() {
-    let list = await employees.fetch();
+    const list = await employees.fetch();
     client().set('employees', JSON.stringify(list));
 }
 
 start()
     .then(() => {
         app.listen(process.env.PORT || 8080, () => {
-            console.log('Listening on port ' + (process.env.PORT || 8080));
+            console.log(`Listening on port + ${(process.env.PORT || 8080)}`);
             subscriptions.watch();
         });
     })
-    .catch(e => {
+    .catch((e) => {
         console.error('cannot start server: ', e);
     });
