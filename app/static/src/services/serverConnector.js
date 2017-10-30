@@ -4,7 +4,7 @@ export default class ServerConnector {
     }
 
     send(req) {
-        const path = this.path + req.path;
+        const path = `${this.path}${req.path}`;
 
         const headersObj = Object.assign({
             'content-type': 'text/plain',
