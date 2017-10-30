@@ -2,6 +2,8 @@ import { h, Component } from 'preact';
 
 import { format, parse, addMilliseconds } from 'date-fns';
 
+import { sflAvatarUrl } from '../../../config';
+
 import './employeesList.css';
 
 export default class EmployeesList extends Component {
@@ -11,7 +13,7 @@ export default class EmployeesList extends Component {
                 {employees.map(employee => (
                     <article class="employee">
                         <div class="employee__wrapper">
-                            <img class="employee__avatar" src={`http://status.sflpro.com/assets/avatars/ ${employee.fullName.replace(" ", "-")} -50x50.jpg`} alt="" />
+                            <img class="employee__avatar" src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} alt="" />
                             <h2 class="employee__name">
                                 {employee.fullName}
                             </h2>
