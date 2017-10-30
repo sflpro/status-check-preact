@@ -1,0 +1,19 @@
+{
+  "name": "Status check",
+  "short_name": "Stats check",
+  "start_url": "/",
+  "background_color": "#f1f1f1",
+  "theme_color": "#673ab8",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [{
+    "src": "assets/icon-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+    {
+      "src": "assets/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }]
+}
