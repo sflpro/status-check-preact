@@ -63,7 +63,7 @@ function sendPushNotification(employee) {
     );
 
     // This is the same output of calling JSON.stringify on a PushSubscription (client.js)
-    if (endPoints[employee.id] !== undefined) {
+    if (employee.id && endPoints[employee.id]) {
         for (const endPoint of endPoints[employee.id]) {
             const pushSubscription = JSON.parse(endPoint);
             webpush.sendNotification(pushSubscription, `${employee.fullName} ' has checked ' ${employee.status}`);
