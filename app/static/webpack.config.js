@@ -13,7 +13,6 @@ const config = {
     ],
     watch: true,
     devtool: 'source-map',
-
     module: {
         rules: [
             {

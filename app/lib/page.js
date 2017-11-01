@@ -24,7 +24,7 @@ module.exports = () => (
         </symbol>
         </defs>
         </svg>
-        <script> const PUSH_KEY = '${process.env.PUSH_PUBLIC}'; </script>
+        <script>const PUSH_KEY = '${process.env.PUSH_PUBLIC}';</script>
         
         <script defer src="scripts/bundle.js"></script>
         </body>

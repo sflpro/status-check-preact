@@ -38,11 +38,13 @@ export default class App extends Component {
             this.setState({ swSupport: support });
         });
     }
+
     getEmployeesList = () => {
         return fetch('api/staff')
             .then(res => res.json())
             .catch((error => console.log(error)));
     }
+
     getSubscribers = (subscription) => {
         return fetch(`api/subscriptions?key=${subscription}`).then((res) => {
             const { employees } = this.state;
@@ -64,7 +66,7 @@ export default class App extends Component {
             method: 'POST',
             headers,
             body: JSON.stringify({ key: subscription, value: subscribers }),
-        }).then(res => console.log(res));
+        });
     }
 
     handleSubscribe = (id) => {

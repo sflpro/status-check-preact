@@ -1,4 +1,5 @@
-const applicationServerPublicKey = 'BFT9-cYod6NToKQvJJOw92nNOlrwzjnkynXUM700N4tWlRLuentPL1YQFKRDF3M604ekg-Yz88VWAl9IRsi-DGE';
+/* global PUSH_KEY */
+const applicationServerPublicKey = PUSH_KEY;
 let isSubscribed = null;
 let swRegistration = null;
 

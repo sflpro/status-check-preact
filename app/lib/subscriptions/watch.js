@@ -2,8 +2,7 @@ const client = require('../redis');
 const employees = require('../employees');
 const webpush = require('web-push');
 
-const PUSH_PRIVATE = 'uETcjAHGtLfkRbhiJDH8anTV6axMa-ZGRj-ABXyJIdA';
-const PUSH_PUBLIC = 'BFT9-cYod6NToKQvJJOw92nNOlrwzjnkynXUM700N4tWlRLuentPL1YQFKRDF3M604ekg-Yz88VWAl9IRsi-DGE';
+const { PUSH_PRIVATE, PUSH_PUBLIC } = process.env;
 
 const endPoints = {};
 
