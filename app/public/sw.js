@@ -34,7 +34,7 @@ self.addEventListener('push', (event) => {
 
 const CACHE_NAME = 'status';
 const urlsToCache = [
-    '/',
+    'scripts/bundle.js',
 ];
 
 self.addEventListener('install', (event) => {
@@ -44,7 +44,7 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache);
     }));
 });
-
+/*
 self.addEventListener('fetch', (event) => {
     event.respondWith(caches.match(event.request).then((response) => {
         if (response) {
@@ -77,4 +77,4 @@ self.addEventListener('fetch', (event) => {
             return res;
         });
     }));
-});
+}); */
