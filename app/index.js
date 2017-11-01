@@ -34,6 +34,8 @@ app.put('/api/subscriptions', (req, res) => {
 });
 
 app.post('/api/subscriptions', (req, res, next) => {
+    console.log(req.body.key);
+    console.log(req.body.value);
     res.end(subscriptions.set(req.body.key, req.body.value));
 });
 

@@ -6,8 +6,13 @@ import { sflAvatarUrl } from '../../../config';
 
 import './employeesList.css';
 
+const icon = {
+    CHECKMARK: 'checkmark',
+    BELL: 'bell',
+};
+
 export default class EmployeesList extends Component {
-    render({ employees }) {
+    render({ employees, onSubscribe }) {
         return (
             <div>
                 {employees.map(employee => (
@@ -20,8 +25,10 @@ export default class EmployeesList extends Component {
                             <p class="employee__date">
                                 {format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss')}
                             </p>
-                            <button class="employee__subscribe">
-                                s
+                            <button class="employee__subscribe" onClick={() => onSubscribe(employee.id)}>
+                                <svg class={`icon icon-${employee.subscribed ? icon.CHECKMARK : icon.BELL}`}>
+                                    <use xlinkHref={`#icon-${employee.subscribed ? icon.CHECKMARK : icon.BELL}`}>{}</use>
+                                </svg>
                             </button>
                         </div>
                     </article>

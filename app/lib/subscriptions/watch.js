@@ -59,8 +59,8 @@ function compareStatuses(oldEmployees, newEmployees) {
 function sendPushNotification(employee) {
     webpush.setVapidDetails(
         'mailto:example@yourdomain.org',
-        process.env.PUSH_PUBLIC,
-        process.env.PUSH_PRIVATE,
+        PUSH_PUBLIC,
+        PUSH_PRIVATE,
     );
 
     // This is the same output of calling JSON.stringify on a PushSubscription (client.js)
