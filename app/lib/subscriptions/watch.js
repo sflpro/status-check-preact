@@ -33,7 +33,7 @@ module.exports = () => {
             oldList = newList;
             console.log('Refreshed the employees list');
         } catch (e) {
-            console.log('Unable to refresh the employees list');
+            console.log(`Unable to refresh the employees list ${e}`);
         }
     }, 10000);
 };
@@ -63,8 +63,10 @@ function sendPushNotification(employee) {
     );
 
     // This is the same output of calling JSON.stringify on a PushSubscription (client.js)
-    for (const endPoint of endPoints[employee.id]) {
-        const pushSubscription = JSON.parse(endPoint);
-        webpush.sendNotification(pushSubscription, `${employee.fullName} ' has checked ' ${employee.status}`);
+    if (endPoints[employee.id] !== undefined) {
+        for (const endPoint of endPoints[employee.id]) {
+            const pushSubscription = JSON.parse(endPoint);
+            webpush.sendNotification(pushSubscription, `${employee.fullName} ' has checked ' ${employee.status}`);
+        }
     }
 }
