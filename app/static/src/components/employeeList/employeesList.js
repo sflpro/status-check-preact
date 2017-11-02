@@ -4,6 +4,8 @@ import { format, parse, addMilliseconds } from 'date-fns';
 
 import { sflAvatarUrl } from '../../../config';
 
+import Image from './../image/image';
+
 import './employeesList.css';
 
 const icon = {
@@ -18,7 +20,7 @@ export default class EmployeesList extends Component {
                 {employees.map(employee => (
                     <article class="employee">
                         <div class="employee__wrapper">
-                            <img class="employee__avatar" src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} alt="" />
+                            <Image src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} />
                             <h2 class="employee__name">
                                 {employee.fullName}
                             </h2>
