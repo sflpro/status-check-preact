@@ -16,9 +16,3 @@ body {
     font-family: sans-serif;
 }
 
-select {
-    border: 1px solid #eee;
-    border-radius: 5px;
-    padding: 7px;
-    width: 100%;
-}

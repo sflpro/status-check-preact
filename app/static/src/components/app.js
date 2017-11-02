@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 
-import Header from "./header/header";
+import Filter from "./filter/filter";
 import Sort from "./sort/sort";
 import EmployeesList from './employeeList/employeesList';
 import Loading from "./loading/loading";
@@ -128,8 +128,11 @@ export default class App extends Component {
             <div>
                 {employees && (
                     <div>
-                        <Header filter={filter} onStatusChange={f => this.handleStatusChange(f)} />
-                        <Sort onSortChange={s => this.handleSortChange(s)} />
+                        <header class="header">
+                            <Filter filter={filter} onStatusChange={f => this.handleStatusChange(f)} />
+                            <Sort sort={sort} onSortChange={s => this.handleSortChange(s)} />
+                        </header>
+                        <div class="clear">{}</div>
                         <EmployeesList employees={this.filterEmployeesList(filter, sort)} swSupport={swSupport} onSubscribe={id => this.handleSubscribe(id)} />
                     </div>
                 )}

@@ -3,4 +3,4 @@ const config = {
     EMPTY_AVATAR: "assets/avatar.png",
 };
 
-export const { EMPTY_AVATAR, sflAvatarUrl, test } = config;
+export const { EMPTY_AVATAR, sflAvatarUrl } = config;

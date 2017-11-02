@@ -6,6 +6,8 @@
 
 .navigation {
     height: 100%;
+    float: left;
+    width: 45%;
 }
 
 .navigation__item {
