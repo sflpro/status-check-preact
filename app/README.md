@@ -16,6 +16,8 @@ TIMECARD_HOST=127.0.0.1
 TIMECARD_PATH=/API/Timecard.ashx
 TIMECARD_USER=user
 TIMECARD_PASS=-pass
+PUBLIC_KEY=
+PRIVATE_KEY=
 ```
 
 Run these commands in the project directory:

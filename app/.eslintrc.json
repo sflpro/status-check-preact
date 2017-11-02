@@ -26,6 +26,7 @@
         "react/jsx-uses-react": 2,
         "react/jsx-uses-vars": 2,
         "react/no-unused-state": 1,
+        "react/prefer-stateless-function": 1,
         "react/jsx-filename-extension": [
             1,
             {
@@ -53,10 +54,7 @@
              }
          ],*/
         "quotes": 0,
-        "semi": [
-            2,
-            "always"
-        ],
+        "semi": 2,
         "no-unused-vars": [
             2,
             {
@@ -65,7 +63,6 @@
             }
         ],
         "no-nested-ternary": 1,
-        "react/prefer-stateless-function": 1,
         "no-param-reassign": 1,
         "react/no-unknown-property": [
             2,
@@ -88,6 +85,9 @@
                 "functions": false,
                 "classes": false
             }
-        ]
+        ],
+        "no-restricted-globals": [1, "self"],
+        "no-useless-escape": 1,
+        "max-len": 1
     }
 }

@@ -13,7 +13,6 @@ const config = {
     ],
     watch: true,
     devtool: 'source-map',
-
     module: {
         rules: [
             {
@@ -37,6 +36,13 @@ const config = {
     },
     devServer: {
         contentBase: 'public',
+    },
+    resolve: {
+        alias: {
+            "react": "preact-compat",
+            "react-dom": "preact-compat",
+            "react-tap-event-plugin": "preact-tap-event-plugin",
+        },
     },
 };
 

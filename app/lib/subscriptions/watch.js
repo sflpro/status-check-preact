@@ -2,8 +2,7 @@ const client = require('../redis');
 const employees = require('../employees');
 const webpush = require('web-push');
 
-const PUSH_PRIVATE = 'uETcjAHGtLfkRbhiJDH8anTV6axMa-ZGRj-ABXyJIdA';
-const PUSH_PUBLIC = 'BFT9-cYod6NToKQvJJOw92nNOlrwzjnkynXUM700N4tWlRLuentPL1YQFKRDF3M604ekg-Yz88VWAl9IRsi-DGE';
+const { PUSH_PRIVATE, PUSH_PUBLIC } = process.env;
 
 const endPoints = {};
 
@@ -34,7 +33,7 @@ module.exports = () => {
             oldList = newList;
             console.log('Refreshed the employees list');
         } catch (e) {
-            console.log('Unable to refresh the employees list');
+            console.log(`Unable to refresh the employees list ${e}`);
         }
     }, 10000);
 };
@@ -59,13 +58,15 @@ function compareStatuses(oldEmployees, newEmployees) {
 function sendPushNotification(employee) {
     webpush.setVapidDetails(
         'mailto:example@yourdomain.org',
-        process.env.PUSH_PUBLIC,
-        process.env.PUSH_PRIVATE,
+        PUSH_PUBLIC,
+        PUSH_PRIVATE,
     );
 
     // This is the same output of calling JSON.stringify on a PushSubscription (client.js)
-    for (const endPoint of endPoints[employee.id]) {
-        const pushSubscription = JSON.parse(endPoint);
-        webpush.sendNotification(pushSubscription, `${employee.fullName} ' has checked ' ${employee.status}`);
+    if (employee.id && endPoints[employee.id]) {
+        for (const endPoint of endPoints[employee.id]) {
+            const pushSubscription = JSON.parse(endPoint);
+            webpush.sendNotification(pushSubscription, `${employee.fullName} ' has checked ' ${employee.status}`);
+        }
     }
 }

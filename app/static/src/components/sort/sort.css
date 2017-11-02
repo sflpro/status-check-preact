@@ -1,0 +1,19 @@
+.sort {
+    float: left;
+    margin-left: 12px;
+}
+
+.sort__label {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 15px;
+    margin-right: 15px;
+    color: rgb(80, 91, 105);
+    margin-top: -5px;
+}
+
+.sort__element{
+    display: inline-block;
+    vertical-align: middle;
+}
+
