@@ -1,33 +1,18 @@
 {
     "plugins": [
         [
-            "transform-react-jsx",
-            {
-                "pragma": "h"
-            }
-        ],
-        [
-            "transform-class-properties"
-        ],
-        [
-            "transform-runtime",
-            {
-                "polyfill": false,
-                "regenerator": true
-            }
+            "transform-class-properties",
+            "transform-react-jsx"
         ]
     ],
     "presets": [
-        "es2015",
         "react",
-        "stage-0",
         [
             "env",
             {
                 "targets": {
-                    "ie": "9",
                     "browsers": [
-                        "ie >= 8"
+                        "ie >= 9"
                     ]
                 }
             }

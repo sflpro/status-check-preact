@@ -13,6 +13,14 @@ app.get('/', async (req, res, next) => {
     res.end(page());
 });
 
+app.get('/in', async (req, res, next) => {
+    res.end(page());
+});
+
+app.get('/out', async (req, res, next) => {
+    res.end(page());
+});
+
 app.get('/api/staff', async (req, res, next) => {
     try {
         res.end(await employees.list());
@@ -47,7 +55,7 @@ async function start() {
 start()
     .then(() => {
         app.listen(process.env.PORT || 8080, () => {
-            console.log(`Listening on port + ${(process.env.PORT || 8080)}`);
+            console.log(`Listening on port ${(process.env.PORT || 8080)}`);
             subscriptions.watch();
         });
     })

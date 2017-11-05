@@ -18,6 +18,11 @@ module.exports = () => {
             if (error) {
                 reject(error);
             }
+            if (!response) {
+                reject();
+                return;
+            }
+
             for (let i = 0; i < response.length; i++) {
                 if (response[i].Active) {
                     employees[response[i].Id] = {};
