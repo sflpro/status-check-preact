@@ -13,11 +13,7 @@ app.get('/', async (req, res, next) => {
     res.end(page());
 });
 
-app.get('/in', async (req, res, next) => {
-    res.end(page());
-});
-
-app.get('/out', async (req, res, next) => {
+app.get(/^(?!(\/api|\/scripts|\/styles|\/assets)).+/gm, async (req, res, next) => {
     res.end(page());
 });
 
