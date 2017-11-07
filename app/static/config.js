@@ -1,7 +1,7 @@
 const config = {
     sflAvatarUrl: "http://status.sflpro.com/assets/avatars/",
-    b: 2,
+    EMPTY_AVATAR: "assets/avatar.png",
 };
 
-export const { sflAvatarUrl, b } = config;
+export const { sflAvatarUrl, EMPTY_AVATAR } = config;
 

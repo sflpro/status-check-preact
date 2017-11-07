@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { format, parse, addMilliseconds } from 'date-fns';
 
+import Image from './../image/Image';
 import { sflAvatarUrl } from '../../../config';
 
 import './employees.css';
@@ -15,7 +16,7 @@ class Employees extends Component {
                 {(employees.length > 0) && employees.map(employee => (
                     <article className="employee" key={employee.id}>
                         <div className="employee__wrapper">
-                            <img className="employee__avatar" src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} alt={employee.fullName} />
+                            <Image className="employee__avatar" src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} alt={employee.fullName} />
                             <h2 className="employee__name">
                                 {employee.fullName}
                             </h2>
