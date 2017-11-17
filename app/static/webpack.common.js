@@ -1,8 +1,23 @@
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 module.exports = {
-    entry: `${__dirname}/src/index.js`,
+    entry: {
+        main: `${__dirname}/src/index.js`,
+        vendor: [
+            'react',
+            'react-dom',
+            'react-router-dom',
+            'react-redux',
+            'redux',
+            'redux-thunk',
+            'date-fns'
+        ]
+    },
     output: {
-        path: `${__dirname}/../public/scripts/`,
-        filename: 'bundle.js'
+        path: `${__dirname}/../public/`,
+        filename: '[name].bundle.js'
     },
     module: {
         rules: [
@@ -13,15 +28,36 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [
-                    { loader: 'style-loader' },
-                    { loader: 'css-loader' }
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
             },
             {
-                test: /\.(eot|svg|otf|ttf|woff|woff2)$/,
+                test: /\.(png|svg|jpg|gif)$/,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]',
+                    context: `${__dirname}/src`
+                }
+            },
+            {
+                test: /\.(eot|otf|ttf|woff|woff2)$/,
                 loader: 'file-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin(['../public'], {
+            allowExternal: true
+        }),
+        new ExtractTextPlugin('styles.css'),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'
+        })
+    ]
 }

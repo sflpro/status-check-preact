@@ -8,7 +8,10 @@ module.exports = () => (
             <title>Ssdfk</title>
         </head>
         <body>
-            <script defer src="scripts/bundle.js"></script>
+            <div id="root"></div>
+            <script defer src="static/runtime.bundle.js"></script>
+            <script defer src="static/vendor.bundle.js"></script>
+            <script defer src="static/main.bundle.js"></script>
         </body>
     </html>`
 );

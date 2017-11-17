@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression')
 const client = require('./lib/redis');
 const page = require('./lib/page');
 const employees = require('./lib/employees');
@@ -7,15 +8,11 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(compression());
 
-app.get('/', async (req, res, next) => {
-    res.end(page());
-});
+app.use('/static', express.static('public'));
 
-app.get(/^(?!(\/api|\/scripts|\/styles|\/assets)).+/gm, async (req, res, next) => {
-    res.end(page());
-});
+app.use('/api', bodyParser.json());
 
 app.get('/api/staff', async (req, res, next) => {
     try {
@@ -33,15 +30,13 @@ app.get('/api/subscriptions', async (req, res, next) => {
     }
 });
 
-app.put('/api/subscriptions', (req, res) => {
-    res.end('ok');
-});
-
-app.post('/api/subscriptions', (req, res, next) => {
+app.post('/api/subscriptions', async (req, res, next) => {
     res.end(subscriptions.set(req.body.key, req.body.value));
 });
 
-app.use(express.static('public'));
+app.use(async (req, res, next) => {
+    res.end(page());
+});
 
 async function start() {
     const list = await employees.fetch();
