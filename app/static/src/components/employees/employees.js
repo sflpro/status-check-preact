@@ -15,9 +15,9 @@ class Employees extends Component {
                 {(employees.length > 0) && employees.map(employee => (
                     <article className="employee" key={employee.id}>
                         <div className="employee__wrapper">
-                            <img className="employee__avatar" src={`${sflAvatarUrl}${employee.fullName.replace(" ", "-")}-50x50.jpg`} alt={employee.fullName} />
+                            <img className="employee__avatar" src={`${sflAvatarUrl}${employee.name.replace(" ", "-")}-50x50.jpg`} alt={employee.name} />
                             <h2 className="employee__name">
-                                {employee.fullName}
+                                {employee.name}
                             </h2>
                             <p className="employee__date">
                                 {format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss')}
