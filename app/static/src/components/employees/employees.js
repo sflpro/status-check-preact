@@ -11,7 +11,7 @@ class Employees extends Component {
     render() {
         const { employees } = this.props;
         return (
-            <div>
+            <div className="employees">
                 {(employees.length > 0) && employees.map(employee => (
                     <article className="employee" key={employee.id}>
                         <div className="employee__wrapper">
@@ -22,9 +22,6 @@ class Employees extends Component {
                             <p className="employee__date">
                                 {format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss')}
                             </p>
-                            <button className="employee__subscribe">
-                                s
-                            </button>
                         </div>
                     </article>
                 ))}
