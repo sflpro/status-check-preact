@@ -2,7 +2,8 @@ const redis = require('redis');
 const xmlrpc = require('xmlrpc');
 const { promisify } = require('util');
 
-const redisClient = redis.createClient('6379', 'redis');
+// const redisClient = redis.createClient('6379', 'redis');
+const redisClient = {};
 
 const xmlRpcClient = xmlrpc.createClient({
     host: process.env.TIMECARD_HOST,

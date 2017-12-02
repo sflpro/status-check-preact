@@ -10,7 +10,8 @@ services:
       volumes:
         - ./app/:/src
       environment:
-        - API_ENDPOINT=//status-check:8080/api
+        - API_ENDPOINT=//localhost:8080/api
+        - NODE_ENV=development
 
     api:
       build: ./api
@@ -20,6 +21,8 @@ services:
         - "8080"
       volumes:
         - ./api/:/src
+      environment:
+        - NODE_ENV=development
       env_file: ~/status-check.env
 
     scheduler:
@@ -28,6 +31,8 @@ services:
         - redis
       volumes:
         - ./scheduler/:/src
+      environment:
+        - NODE_ENV=development
       env_file: ~/status-check.env
 
     redis:
