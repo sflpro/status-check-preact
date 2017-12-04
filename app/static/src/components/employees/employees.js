@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { format, parse, addMilliseconds } from 'date-fns';
 
@@ -14,19 +15,20 @@ class Employees extends Component {
             <div className="employees">
                 {(employees.length > 0) && employees.map(employee => (
                     <article className="employee" key={employee.id}>
-                        <div className="employee__wrapper">
+                        <Link className="employee__wrapper" to={{ pathname: `/employee/${employee.id}`, state: { modal: true } }}>
                             <img className="employee__avatar" src={`${sflAvatarUrl}${employee.name.replace(" ", "-")}-50x50.jpg`} alt={employee.name} />
                             <h2 className="employee__name">
                                 {employee.name}
                             </h2>
                             <p className="employee__date">
-                                {format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss')}
+                                {employee.lastStatusChange ? format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss') : 'long time ago'}
                             </p>
-                        </div>
+                        </Link>
                     </article>
                 ))}
                 <div className="clear"></div>
             </div>
+
         );
     }
 }
