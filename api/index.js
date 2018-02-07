@@ -21,7 +21,8 @@ function getEmployees() {
 
 app.get('/api/staff', async (req, res, next) => {
     try {
-        res.end(await getEmployees());
+        let employees = await getEmployees();
+        res.end(JSON.stringify(employees));
     } catch (e) {
         res.end('something went wrong: \n', JSON.stringify(e));
     }
