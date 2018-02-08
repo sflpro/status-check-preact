@@ -35,9 +35,7 @@ class Employees extends Component {
 
 function filterEmployees(employees, filter) {
     if (employees.length > 0) {
-        return employees.filter(employee => {
-            return employee.status === filter.toLowerCase();
-        });
+        return employees.filter(employee => employee.status === filter.toLowerCase());
     }
     return employees;
 }
