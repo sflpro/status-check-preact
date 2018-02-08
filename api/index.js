@@ -22,7 +22,7 @@ function getEmployees() {
 app.get('/api/staff', async (req, res, next) => {
     try {
         let employees = await getEmployees();
-        res.end(JSON.stringify(employees));
+        !employees ? res.end([]) : res.end(employees);
     } catch (e) {
         res.end('something went wrong: \n', JSON.stringify(e));
     }
