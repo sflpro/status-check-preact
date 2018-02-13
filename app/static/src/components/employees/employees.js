@@ -42,9 +42,23 @@ function filterEmployees(employees, filter) {
     return employees;
 }
 
+function sortAndFilterEmployees(employees, filter, employeeSortOption) {
+    var employeesArr = filterEmployees(employees, filter);
+
+    if(employeeSortOption) {
+        employeesArr.sort((a, b) => {
+            if(a[employeeSortOption] < b[employeeSortOption]) return -1;
+            if(a[employeeSortOption] > b[employeeSortOption]) return 1;
+            return 0;
+        });
+    }
+
+    return employeesArr;
+}
+
 function mapProperties(state, ownProps) {
     return {
-        employees: filterEmployees(state.employees, ownProps.filter)
+        employees: sortAndFilterEmployees(state.employees, ownProps.filter, state.sortEmployeesByOption.sortOption)
     }
 }
 

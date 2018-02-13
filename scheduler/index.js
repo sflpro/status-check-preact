@@ -33,7 +33,7 @@ function fetchEmployees() {
             return methodCall('GetTransactions', [employees.map(employee => employee.id), startDate, endDate])
         })
         .then(transactions => {
-            return transactions.reduce((accumulator, currentValue) => {;
+            return transactions.reduce((accumulator, currentValue) => {
                 const id = currentValue.EmployeeId;
                 const transactions = currentValue.Transactions;
                 const lastTransaction = transactions[transactions.length - 1];
