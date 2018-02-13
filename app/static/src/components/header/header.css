@@ -26,6 +26,12 @@
     color: #000;
 }
 
+.filterBlock {
+    width: 200px;
+    height: 100%;
+    margin-left: 20px;
+}
+
 @supports (display: flex) {
     .navigation__item {
         display: flex;

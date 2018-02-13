@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CHANGE_FILTER, CHANGE_SORT_OPTION, RECEIVE_EMPLOYEES, FILTERS, SORT_OPTIONS } from './actions';
+import { CHANGE_FILTER, CHANGE_SORT_OPTION, RECEIVE_EMPLOYEES, FILTERS, SORT_OPTIONS, SORT_EMPLOYEES } from './actions';
 
 function filter(state = FILTERS.IN, action) {
     switch(action.type) {
@@ -19,6 +19,15 @@ function sortOption(state = SORT_OPTIONS.LAST_ACTION, action) {
     }
 }
 
+function sortEmployeesByOption(state = SORT_EMPLOYEES, action) {
+    switch(action.type) {
+        case SORT_EMPLOYEES:
+            return action;
+        default:
+            return state;
+    }
+}
+
 function employees(state = [], action) {
     switch (action.type) {
         case RECEIVE_EMPLOYEES:
@@ -31,5 +40,6 @@ function employees(state = [], action) {
 export default combineReducers({
     filter,
     sortOption,
-    employees
+    employees,
+    sortEmployeesByOption
 });

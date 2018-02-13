@@ -42,9 +42,21 @@ function filterEmployees(employees, filter) {
     return employees;
 }
 
+function sortAndFilterEmployees(employees, filter, employeeSortOption) {
+    const employeesArr = filterEmployees(employees, filter);
+
+    if(employeeSortOption) {
+        employeesArr.sort((a, b) => {
+            return b[employeeSortOption] && a[employeeSortOption].localeCompare(b[employeeSortOption]);
+        });
+    }
+
+    return employeesArr;
+}
+
 function mapProperties(state, ownProps) {
     return {
-        employees: filterEmployees(state.employees, ownProps.filter)
+        employees: sortAndFilterEmployees(state.employees, ownProps.filter, state.sortEmployeesByOption.sortOption)
     }
 }
 
