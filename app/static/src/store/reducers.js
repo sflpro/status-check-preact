@@ -37,11 +37,9 @@ function employees(state = [], action) {
     }
 }
 
-var reducers = combineReducers({
-    filter: filter,
-    sortOption: sortOption,
-    employees: employees,
-    sortEmployeesByOption: sortEmployeesByOption
+export default combineReducers({
+    filter,
+    sortOption,
+    employees,
+    sortEmployeesByOption
 });
-
-export default reducers;

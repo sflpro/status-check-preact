@@ -43,13 +43,11 @@ function filterEmployees(employees, filter) {
 }
 
 function sortAndFilterEmployees(employees, filter, employeeSortOption) {
-    var employeesArr = filterEmployees(employees, filter);
+    const employeesArr = filterEmployees(employees, filter);
 
     if(employeeSortOption) {
         employeesArr.sort((a, b) => {
-            if(a[employeeSortOption] < b[employeeSortOption]) return -1;
-            if(a[employeeSortOption] > b[employeeSortOption]) return 1;
-            return 0;
+            return b[employeeSortOption] && a[employeeSortOption].localeCompare(b[employeeSortOption]);
         });
     }
 
