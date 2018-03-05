@@ -2,7 +2,7 @@
 
 if [ $NODE_ENV == 'development' ]
 then
-    nodemon index.js
+    nodemon boot
 else
-    node index.js
+    node boot
 fi

@@ -1,6 +1,7 @@
 const express = require('express');
 const compression = require('compression');
 const redis = require('redis');
+
 const client = redis.createClient('6379', 'redis');
 
 const app = express();
@@ -27,6 +28,4 @@ app.get('/api/staff', async (req, res, next) => {
     }
 });
 
-app.listen(process.env.PORT || 8080, () => {
-    console.log(`Listening on port ${(process.env.PORT || 8080)}`);
-});
+module.exports = app;
