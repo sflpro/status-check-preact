@@ -1,8 +1,5 @@
 const express = require('express');
 const compression = require('compression');
-const redis = require('redis');
-
-const client = redis.createClient('6379', 'redis');
 
 const app = express();
 

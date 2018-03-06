@@ -2,7 +2,7 @@
 
 if [ $NODE_ENV == 'development' ]
 then
-    nodemon --inspect index.js
+    nodemon index.js
 else
     node index.js
 fi

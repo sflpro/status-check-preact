@@ -1,8 +1,5 @@
-const redis = require('redis');
 const xmlrpc = require('xmlrpc');
 const { promisify } = require('util');
-
-const redisClient = redis.createClient('6379', 'redis');
 
 const xmlRpcClient = xmlrpc.createClient({
     host: process.env.TIMECARD_HOST,
@@ -56,7 +53,6 @@ function fetchEmployees() {
 function start() {
     fetchEmployees()
         .then(result => {
-            redisClient.set('employees', JSON.stringify(result));
             console.log('Employees are successfully fetched');
             setTimeout(start, 10000);
         })
