@@ -1,5 +1,6 @@
 const xmlrpc = require('xmlrpc');
 const { promisify } = require('util');
+const logger = require('../logger');
 
 const xmlRpcClient = xmlrpc.createClient({
     host: process.env.TIMECARD_HOST,
