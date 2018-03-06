@@ -1,28 +1,17 @@
 const express = require('express');
-const compression = require('compression');
+const bodyParser = require('body-parser');
+
+const employeesRouter = require('./routes/employees');
+const transactionsRouter = require('./routes/transactions');
 
 const app = express();
 
-app.use(compression());
+app.use(bodyParser.json());
 
-function getEmployees() {
-    return new Promise((resolve, reject) => {
-        client.get('employees', (error, employees) => {
-            if (error) {
-                reject(error);
-                return;
-            }
-            resolve(employees || []);
-        });
-    });
-}
-
-app.get('/api/staff', async (req, res, next) => {
-    try {
-        res.end(await getEmployees());
-    } catch (e) {
-        res.end('something went wrong: \n', JSON.stringify(e));
-    }
-});
+/**
+ * Main application routes.
+ */
+app.use('/api/employees', employeesRouter);
+app.use('/api/transactions', transactionsRouter);
 
 module.exports = app;
