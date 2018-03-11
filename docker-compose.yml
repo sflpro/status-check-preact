@@ -26,11 +26,11 @@ services:
         - NODE_ENV=development
         - LOG_LEVEL=info
         - PORT=8080
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-        - POSTGRES_DB=rozaroute
-        - POSTGRES_HOST=postgres
-        - POSTGRES_PORT=5432
+        - DB_USER=postgres
+        - DB_PASSWORD=postgres
+        - DB_NAME=statuscheck
+        - DB_DIALECT=postgres
+        - DB_HOST=postgres
       env_file: ~/status-check.env
 
     scheduler:
@@ -63,7 +63,7 @@ services:
       environment:
         - POSTGRES_USER=postgres
         - POSTGRES_PASSWORD=postgres
-        - POSTGRES_DB=postgres
+        - DB_NAME=statuscheck
         - PGDATA=/var/lib/postgresql/data/pgdata
 
 volumes:
