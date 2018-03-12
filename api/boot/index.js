@@ -28,7 +28,8 @@ app.use(pinoExpress);
  */
 db
     .authenticate()
-    .then(() => {
+    .then(async () => {
+        await db.sync();
         logger.info('Database connected.');
         server.listen(PORT);
     })

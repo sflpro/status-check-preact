@@ -1,6 +1,6 @@
 const xmlrpc = require('xmlrpc');
 const { promisify } = require('util');
-const logger = require('../logger');
+const logger = require('./logger');
 
 const xmlRpcClient = xmlrpc.createClient({
     host: process.env.TIMECARD_HOST,
@@ -17,6 +17,18 @@ const methodCall = promisify(xmlRpcClient.methodCall.bind(xmlRpcClient));
 function fetchEmployees() {
     let employeesShort;
     return methodCall('GetAllEmployeesShort', [])
+        .then(employees => {
+            let empls = employees.map(employee => ({
+                code: employee.Code,
+                badge: employee.Badge,
+                firstName: employee.Name,
+                middleName: employee.MiddleName,
+                lastName: employee.LastName,
+                fullName: employee.FullName,
+                active: employee.Active,
+            }));
+            return employees;
+        })
         .then(employees => employees.filter(employee => employee.Active))
         .then(employees => employees.map(employee => ({
             id: employee.Id,
@@ -29,6 +41,26 @@ function fetchEmployees() {
             startDate.setDate(startDate.getDate() - 3);
             endDate.setDate(endDate.getDate() + 1);
             return methodCall('GetTransactions', [employees.map(employee => employee.id), startDate, endDate])
+        })
+        .then(transactions => {
+            let tactions = [];
+
+            transactions.forEach(transactionPerEmployee => {
+                transactionPerEmployee.Transactions.forEach(transaction => {
+                    let { Id, Action, DeviceId, Status, InsertDate, OriginalDate } = transaction;
+                    tactions.push({
+                        id: Id,
+                        employeeId: transactionPerEmployee.EmployeeId,
+                        action: Action,
+                        deviceId: DeviceId,
+                        status: Status,
+                        insertDate: InsertDate,
+                        originalDate: OriginalDate,
+                    });
+                });
+            });
+
+            return transactions;
         })
         .then(transactions => {
             return transactions.reduce((accumulator, currentValue) => {;
