@@ -6,7 +6,7 @@ const transactionsRouter = require('./routes/transactions');
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 /**
  * Main application routes.
