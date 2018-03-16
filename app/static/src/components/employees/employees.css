@@ -2,6 +2,17 @@
     padding: 6px;
 }
 
+.employees__empty {
+    text-align: center;
+    margin: 50px;
+}
+
+.empty__status {
+    font-size: 2rem;
+    color: #9fa3af;
+}
+
+
 .employee {
     padding: 6px;
 }
