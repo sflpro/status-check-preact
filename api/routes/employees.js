@@ -6,38 +6,14 @@ const express = require('express');
 const Sequelize = require('sequelize');
 const router = express.Router();
 
-const sequelize = require('../db');
-
-const Employee = sequelize.define('employee', {
-    code: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-    },
-    badge: {
-        type: Sequelize.INTEGER
-    },
-    firstName: {
-        type: Sequelize.STRING
-    },
-    middleName: {
-        type: Sequelize.STRING
-    },
-    lastName: {
-        type: Sequelize.STRING
-    },
-    fullName: {
-        type: Sequelize.STRING
-    },
-    active: {
-        type: Sequelize.BOOLEAN
-    },
-}, {
-    timestamps: false,
-});
+const Employee = require('../models/employee');
 
 router.get('/', async (req, res, next) => {
     const employees = await Employee.findAll();
     res.send(employees);
+});
+router.get('/statuses', async (req, res, next) => {
+    res.send([]);
 });
 router.post('/', async (req, res, next) => {
     let employees = req.body,

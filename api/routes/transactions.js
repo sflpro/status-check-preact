@@ -1,39 +1,12 @@
 /**
- * The file contains REST endpoints for managing Emplyees
+ * The file contains REST endpoints for managing Transactions
  */
 
 const express = require('express');
 const Sequelize = require('sequelize');
 const router = express.Router();
 
-const sequelize = require('../db');
-
-const Transaction = sequelize.define('transaction', {
-    id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-    },
-    employeeId: {
-        type: Sequelize.INTEGER,
-    },
-    action: {
-        type: Sequelize.INTEGER,
-    },
-    deviceId: {
-        type: Sequelize.INTEGER,
-    },
-    status: {
-        type: Sequelize.INTEGER,
-    },
-    insertDate: {
-        type: Sequelize.DATE,
-    },
-    originalDate: {
-        type: Sequelize.DATE,
-    },
-}, {
-    timestamps: false,
-});
+const Transaction = require('../models/transaction');
 
 router.get('/', async (req, res, next) => {
     const transactions = await Transaction.findAll();
