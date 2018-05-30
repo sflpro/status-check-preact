@@ -17,7 +17,7 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:5.3.2
     volumes:
-      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
     depends_on:
       - elasticsearch
     deploy:
