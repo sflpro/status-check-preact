@@ -7,8 +7,21 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_password
+      - DB_NAME=db_name
+      - PGDATA=/var/lib/postgresql/data/pgdata
     deploy:
       replicas: 1
+
+secrets:
+  postgres_user:
+    file: ~/postgress_user.txt
+  postgres_password:
+    file: ~/postgress_password.txt
+  db_name:
+    file: ~/db_name.txt
 
 volumes:
   pgdata:
