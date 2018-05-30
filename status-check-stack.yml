@@ -19,11 +19,13 @@ services:
     deploy:
       replicas: 1
 
+  scheduler:
+
 secrets:
   postgres_user:
-    file: postgress_user.txt
+    file: postgres_user.txt
   postgres_password:
-    file: postgress_password.txt
+    file: postgres_password.txt
   db_name:
     file: db_name.txt
 
