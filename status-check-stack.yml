@@ -8,10 +8,14 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=postgres_user
-      - POSTGRES_PASSWORD=postgres_password
-      - DB_NAME=db_name
+      - POSTGRES_USER=/run/secrets/postgres_user
+      - POSTGRES_PASSWORD=/run/secrets/postgres_password
+      - DB_NAME=/run/secrets/db_name
       - PGDATA=/var/lib/postgresql/data/pgdata
+    secrets:
+      - postgres_user
+      - postgres_password
+      - db_name
     deploy:
       replicas: 1
 
