@@ -19,6 +19,25 @@ services:
     deploy:
       replicas: 1
 
+  scheduler:
+    images: sflpro/status-check-scheduler:latest
+    environment:
+      - API_ENDPOINT=http://api:8080/api
+      - REQUEST_INTERVAL=100000
+      - REQUEST_FROM=3
+      - REQUEST_TO=1
+      - TIMECARD_HOST=/run/secrets/timecard_host
+      - TIMECARD_PATH=/run/secrets/timecard_path
+      - TIMECARD_USER=/run/secrets/timecard_user
+      - TIMECARD_PASS=/run/secrets/timecard_pass
+    secrets:
+      - timecard_host
+      - timecard_path
+      - timecard_user
+      - timecard_pass
+    deploy:
+      replicas: 1
+
 secrets:
   postgres_user:
     file: postgres_user.txt
@@ -26,7 +45,14 @@ secrets:
     file: postgres_password.txt
   db_name:
     file: db_name.txt
-
+  timecard_host:
+    file: timecard_host.txt
+  timecard_path:
+    file: timecard_path.txt
+  timecard_user:
+    file: timecard_user.txt
+  timecard_pass:
+    file: timecard_pass.txt
 volumes:
   pgdata:
     driver: local
