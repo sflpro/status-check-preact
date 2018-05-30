@@ -15,5 +15,5 @@ script:
   - cd $PROJECT_DIR/postgres
   - ./build.sh
   - cd $PROJECT_DIR/scheduler
-    - ./build.sh
+  - ./build.sh
 
