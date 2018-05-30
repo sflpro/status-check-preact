@@ -20,7 +20,7 @@ services:
       replicas: 1
 
   scheduler:
-    images: sflpro/status-check-scheduler:latest
+    image: sflpro/status-check-scheduler:latest
     environment:
       - API_ENDPOINT=http://api:8080/api
       - REQUEST_INTERVAL=100000
