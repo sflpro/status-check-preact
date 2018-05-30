@@ -19,8 +19,6 @@ services:
     deploy:
       replicas: 1
 
-  scheduler:
-
 secrets:
   postgres_user:
     file: postgres_user.txt
