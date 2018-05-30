@@ -15,9 +15,7 @@ services:
       replicas: 1
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:5.3.2
-    volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    image: sflpro/status-check-logstash:latest
     depends_on:
       - elasticsearch
     deploy:
