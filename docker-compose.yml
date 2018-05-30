@@ -31,7 +31,6 @@ services:
         - DB_NAME=statuscheck
         - DB_DIALECT=postgres
         - DB_HOST=postgres
-      env_file: ~/status-check.env
 
     scheduler:
       build: ./scheduler

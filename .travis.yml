@@ -1,0 +1,13 @@
+sudo: required
+language: node_js
+node_js:
+  - "9.5.0"
+services:
+  - docker
+
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+script:
+  - cd $PWD/postgres
+  - ./build.sh

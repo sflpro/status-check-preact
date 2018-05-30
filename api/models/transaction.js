@@ -31,8 +31,6 @@ const Transaction = sequelize.define('transaction', {
     timestamps: false,
 });
 
-Transaction.schema('public');
-
-// Transaction.belongsTo(Employee, { foreignKey: 'employeeId' });
+Transaction.belongsTo(Employee, { foreignKey: 'employeeId' });
 
 module.exports = Transaction;

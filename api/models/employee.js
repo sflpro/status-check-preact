@@ -29,6 +29,4 @@ const Employee = sequelize.define('employee', {
     timestamps: false,
 });
 
-Employee.schema('public').sync();
-
 module.exports = Employee;
