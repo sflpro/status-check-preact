@@ -21,11 +21,11 @@ services:
 
 secrets:
   postgres_user:
-    file: ~/postgress_user.txt
+    file: postgress_user.txt
   postgres_password:
-    file: ~/postgress_password.txt
+    file: postgress_password.txt
   db_name:
-    file: ~/db_name.txt
+    file: db_name.txt
 
 volumes:
   pgdata:
