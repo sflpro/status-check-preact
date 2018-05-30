@@ -13,7 +13,7 @@ class Employees extends Component {
         const { employees } = this.props;
         return (
             <div className="employees">
-                {(employees.length > 0) && employees.map(employee => (
+                {(employees.length > 0) ? employees.map(employee => (
                     <article className="employee" key={employee.id}>
                         <Link className="employee__wrapper" to={{ pathname: `/employee/${employee.id}`, state: { modal: true } }}>
                             <img className="employee__avatar" src={`${sflAvatarUrl}${employee.name.replace(" ", "-")}-50x50.jpg`} alt={employee.name} />
@@ -25,7 +25,10 @@ class Employees extends Component {
                             </p>
                         </Link>
                     </article>
-                ))}
+                )) : (<div className="employees__empty">
+                        <p className="empty__status">Employees list is not available...</p>
+                        <p className="empty__status"> Please try again </p>
+                    </div>)}
                 <div className="clear"></div>
             </div>
 
