@@ -1,11 +1,13 @@
 module.exports = `
-    select e."fullName", t1.*, t2.status from (
-        select "employeeId", max("insertDate") as "insertDate"
+    select e."fullName", t1.*,
+    (case e.active when true then 'in' else 'out'end) as "status"
+    from (
+        select "employeeId" as "id", max("originalDate") as "lastStatusChange"
         from transactions
         group by "employeeId"
     ) t1
     left join transactions t2
-    on t1."employeeId" = t2."employeeId" and t1."insertDate" = t2."insertDate"
+    on t1."id" = t2."employeeId" and t1."lastStatusChange" = t2."originalDate"
     join employees e
-    on t1."employeeId" = e.code
+    on t1."id" = e.code
 `;
