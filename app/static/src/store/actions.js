@@ -27,7 +27,6 @@ export function fetchEmployees() {
                 error => console.error(error)
             )
             .then(json => {
-                console.log(json)
                 dispatch(receiveEmployees(json));
             })
     }

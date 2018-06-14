@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
         const employees = await Employee.findAll();
         res.json(employees);
     } catch(err) {
-        res.status(500).send(err.message);
+        res.status(500).send("An error occurred when getting employees");
         logger.error('Error employee get', err);
     }
 });
@@ -31,7 +31,7 @@ router.post('/', async (req, res, next) => {
         let result = await Promise.all(upsertPromises);
         res.send('Employees are successfully inserted!');
     } catch(err) {
-        res.status(500).send(err.message);
+        res.status(500).send("An error occurred when inserting employees.");
         logger.error('Error employee post', err);
     }
 });
@@ -41,7 +41,7 @@ router.get('/statuses', async (req, res, next) => {
         const employees = await db.query(queries.getStatuses, { type: db.QueryTypes.SELECT});
         res.json(employees);
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).send("An error occurred when getting employee statuses");
         logger.error('Error employee post', err);
     }
 });

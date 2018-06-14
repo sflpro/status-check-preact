@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
         const transactions = await Transaction.findAll();
         res.json(transactions);
     } catch(err) {
-        res.status(500).send(err.message);
+        res.status(500).send("An error occurred when getting transactions");
         logger.error('Error transaction get', err);
     }
 });
@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
         let result = await Promise.all(upsertPromises);
         res.send('Transactions are successfully inserted!');
     } catch(err) {
-        res.status(500).send(err.message);
+        res.status(500).send("An error occurred when inserting transactions.");
         logger.error('Error transaction post', err);
     }
 });
