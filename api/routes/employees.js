@@ -38,7 +38,7 @@ router.post('/', async (req, res, next) => {
 
 router.get('/statuses', async (req, res, next) => {
     try {
-        const employeesInPostgres = await Employee.findAll({
+        const allActiveEmployees = await Employee.findAll({
             where: {
                 active: true
             },
@@ -48,10 +48,10 @@ router.get('/statuses', async (req, res, next) => {
                 'fullName'
             ]
         });
-        const employeesInPostgresPromises = employeesInPostgres.map((e) => {
+        const activeEmployeesWithTransactionsPromises = allActiveEmployees.map((employee) => {
             return Transaction.findOne({
                 where: {
-                    employeeId: e.code
+                    employeeId: employee.code
                 },
                 attributes: [
                     'deviceId',
@@ -63,23 +63,23 @@ router.get('/statuses', async (req, res, next) => {
                 order: [
                     [sequelize.fn('max', sequelize.col('originalDate')), 'desc']
                 ]
-            }).then((t) => {
-                if (t) {
-                    const tJSON = t.toJSON();
+            }).then((lastTransaction) => {
+                if (lastTransaction) {
+                    const lastTransactionJSON = t.toJSON();
                     return {
-                        id: e.code,
-                        fullName: e.fullName,
-                        lastStatusChange: tJSON.lastStatusChange,
-                        status: tJSON.deviceId == 3 ? 'in' : 'out'
+                        id: employee.code,
+                        fullName: employee.fullName,
+                        lastStatusChange: lastTransactionJSON.lastStatusChange,
+                        status: lastTransactionJSON.deviceId == 3 ? 'in' : 'out'
                     }
                 }
             });
         });
         
-        const allEmployeesWithTransactions = await Promise.all(employeesInPostgresPromises);
-        const activeAmployeesWithTransactions = allEmployeesWithTransactions.filter((e) => !!e);
+        const activeEmployeesWithTransactions = await Promise.all(activeEmployeesWithTransactionsPromises);
+        const employessWithLastTransaction = activeEmployeesWithTransactions.filter((e) => !!e);
 
-        res.json(activeAmployeesWithTransactions);
+        res.json(employessWithLastTransaction);
     } catch (err) {
         res.status(500).send("An error occurred when getting employee statuses.");
         logger.error('Error employee post', err);
