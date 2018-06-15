@@ -6,14 +6,16 @@ services:
   - docker
 
 before_script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-script:
   - export PROJECT_DIR=$PWD
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - cd $PROJECT_DIR/api
+  - npm i
   - npm run lint
   - cd $PROJECT_DIR/scheduler
+  - npm i  
   - npm run lint
+
+script:
   - cd $PROJECT_DIR/logstash
   - ./build.sh
   - cd $PROJECT_DIR/postgres 
