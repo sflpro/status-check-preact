@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { format, parse, addMilliseconds } from 'date-fns';
 
-import { sflAvatarUrl } from '../../../config';
-
 import './employees.css';
+import { genEmployeeImgSrc } from '../helpers';
 
 class Employees extends Component {
     render() {
@@ -16,9 +15,9 @@ class Employees extends Component {
                 {(employees.length > 0) ? employees.map(employee => (
                     <article className="employee" key={employee.id}>
                         <Link className="employee__wrapper" to={{ pathname: `/employee/${employee.id}`, state: { modal: true } }}>
-                            <img className="employee__avatar" src={`${sflAvatarUrl}${employee.name.replace(" ", "-")}-50x50.jpg`} alt={employee.name} />
+                            <img className="employee__avatar" src={genEmployeeImgSrc(employee.fullName)} alt={employee.fullName} />
                             <h2 className="employee__name">
-                                {employee.name}
+                                {employee.fullName}
                             </h2>
                             <p className="employee__date">
                                 {employee.lastStatusChange ? format(addMilliseconds(parse(employee.lastStatusChange), -4 * 60 * 60 * 1000), 'DD MMMM YYYY HH:mm:ss') : 'long time ago'}
