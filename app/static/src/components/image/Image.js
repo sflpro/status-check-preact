@@ -15,7 +15,7 @@ export default class Image extends Component {
     }
 
     render() {
-      const src = this.props.src;
+      const { src } = this.props;
       return (
         <img onError={this.handleError} className="employee__avatar" src={this.state.src || src} alt="" />
       );

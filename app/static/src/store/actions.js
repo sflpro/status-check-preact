@@ -23,7 +23,7 @@ export function fetchEmployees() {
   return dispatch => fetch(`${API_ENDPOINT}/employees/statuses`)
     .then(
       response => response.json(),
-      error => console.error(error),
+      (error) => { throw error; },
     )
     .then((json) => {
       dispatch(receiveEmployees(json));
