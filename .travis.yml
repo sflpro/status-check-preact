@@ -8,6 +8,7 @@ services:
 before_script:
   - export PROJECT_DIR=$PWD
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo $PROJECT_DIR
   - npm i -g eslint
   - cd $PROJECT_DIR/api
   - npm run lint
