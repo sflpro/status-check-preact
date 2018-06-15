@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
         const transactions = await Transaction.findAll();
         res.json(transactions);
     } catch(err) {
-        res.status(500).send("An error occurred when getting transactions");
+        res.status(500).send("An error occurred when getting transactions.");
         logger.error('Error transaction get', err);
     }
 });

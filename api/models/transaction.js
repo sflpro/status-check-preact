@@ -33,6 +33,6 @@ const Transaction = sequelize.define('transaction', {
 
 Transaction.belongsTo(Employee, { foreignKey: 'employeeId' });
 
-Employee.hasOne(Transaction);
+Employee.hasOne(Transaction, { foreignKey: 'employeeId' });
 
 module.exports = Transaction;
