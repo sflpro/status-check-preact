@@ -21,7 +21,7 @@ export function receiveEmployees(employees) {
 
 export function fetchEmployees() {
     return dispatch => {
-        return fetch(`${API_ENDPOINT}/staff`)
+        return fetch(`${API_ENDPOINT}/employees/statuses`)
             .then(
                 response => response.json(),
                 error => console.error(error)

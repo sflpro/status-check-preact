@@ -4,7 +4,7 @@ services:
     app:
       build: ./app
       links:
-        - redis
+        - postgres
       expose:
         - "8080"
       volumes:
@@ -12,33 +12,40 @@ services:
       environment:
         - API_ENDPOINT=//localhost:8080/api
         - NODE_ENV=development
+        - LOG_LEVEL=info
 
     api:
       build: ./api
       links:
-        - redis
+        - postgres
       expose:
         - "8080"
       volumes:
         - ./api/:/src
       environment:
         - NODE_ENV=development
-      env_file: ~/status-check.env
+        - LOG_LEVEL=info
+        - PORT=8080
+        - DB_USER=postgres
+        - DB_PASSWORD=postgres
+        - DB_NAME=statuscheck
+        - DB_DIALECT=postgres
+        - DB_HOST=postgres
 
     scheduler:
       build: ./scheduler
       links:
-        - redis
+        - postgres
       volumes:
         - ./scheduler/:/src
       environment:
+        - API_ENDPOINT=http://api:8080/api
         - NODE_ENV=development
+        - LOG_LEVEL=info
+        - REQUEST_INTERVAL=100000
+        - REQUEST_FROM=3
+        - REQUEST_TO=1
       env_file: ~/status-check.env
-
-    redis:
-      image: redis
-      ports:
-          - "6379"
 
     nginx:
       build: ./nginx
@@ -49,3 +56,18 @@ services:
         - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       ports:
         - "8080:80"
+
+    postgres:
+      build: ./postgres
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+      ports:
+        - "5432:5432"
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - DB_NAME=statuscheck
+        - PGDATA=/var/lib/postgresql/data/pgdata
+
+volumes:
+  pgdata:

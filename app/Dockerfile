@@ -11,8 +11,5 @@ RUN mkdir -p /src && cp -a /tmp/node_modules /src/
 WORKDIR /src
 ADD . /src
 
-# Expose port
-EXPOSE 8080
-
 # Run app using node
 CMD ["/bin/sh", "start.sh"]
