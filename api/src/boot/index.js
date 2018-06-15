@@ -15,8 +15,6 @@ const PORT = process.env.PORT || 8080;
  * allows to make integrating tools like socket.io easier.
  */
 const server = http.createServer(app);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Log HTTP requests and responses.
@@ -27,27 +25,30 @@ app.use(pinoExpress);
  * Wait for the connection with the database before starting the server.
  */
 db
-    .authenticate()
-    .then(async () => {
-        await db.sync({ force: true });
-        logger.info('Database connected.');
-        server.listen(PORT);
-    })
-    .catch(error => {
-        logger.error('Unable to connect to the database: ', error);
-        throw error;
-    });
+  .authenticate()
+  .then(async () => {
+    await db.sync({ force: true });
+    logger.info('Database connected.');
+    server.listen(PORT);
+  })
+  .catch((error) => {
+    logger.error('Unable to connect to the database: ', error);
+    throw error;
+  });
 
 /**
  * Event listener for HTTP server "error" event.
  */
 function onError(error) {
-    throw error;
+  throw error;
 }
 
 /**
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    logger.info(`Listening on port ${PORT}.`);
+  logger.info(`Listening on port ${PORT}.`);
 }
+
+server.on('error', onError);
+server.on('listening', onListening);

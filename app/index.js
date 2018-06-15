@@ -8,10 +8,10 @@ app.use(compression());
 
 app.use('/static', express.static('public'));
 
-app.use(async (req, res, next) => {
-    res.end(page());
+app.use(async (req, res) => {
+  res.end(page());
 });
 
 app.listen(process.env.PORT || 8080, () => {
-    console.log(`Listening on port ${(process.env.PORT || 8080)}`);
+  console.log(`Listening on port ${(process.env.PORT || 8080)}`);
 });

@@ -8,24 +8,22 @@ import thunkMiddleware from 'redux-thunk';
 import rootReducer from './store/reducers';
 import { fetchEmployees } from './store/actions';
 
-let store = createStore(
-    rootReducer,
-    applyMiddleware(
-        thunkMiddleware
-    )
-);
-
 import App from './components/app';
 
 import './index.css';
 
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunkMiddleware),
+);
+
 store.dispatch(fetchEmployees());
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Route component={App} />
-        </Router>
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <Router>
+      <Route component={App} />
+    </Router>
+  </Provider>,
+  document.getElementById('root'),
 );
