@@ -5,14 +5,18 @@ node_js:
 services:
   - docker
 
-before_script:
+install:
   - export PROJECT_DIR=$PWD
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - cd $PROJECT_DIR/api
   - npm i
-  - npm run lint
   - cd $PROJECT_DIR/scheduler
   - npm i  
+
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - cd $PROJECT_DIR/api
+  - npm run lint
+  - cd $PROJECT_DIR/scheduler
   - npm run lint
 
 script:
