@@ -7,8 +7,8 @@ import { format, parse, addMilliseconds } from 'date-fns';
 import './employees.css';
 import { genEmployeeImgSrc } from '../helpers';
 
-const Employees = () => {
-    const { employees } = this.props;
+const Employees = (props) => {
+    const { employees } = props;
     return (
         <div className="employees">
             {

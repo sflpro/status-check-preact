@@ -1,22 +1,21 @@
 const sequelize = require('sequelize');
 
-const logger = require('../logger');
 const Employee = require('../models/employee');
 const Transaction = require('../models/transaction');
+const errorHelper = require('../helpers/errorHelper');
 
 const EmployeeController = {};
 
-EmployeeController.getEmployees = async (req, res) => {
+EmployeeController.getEmployees = async (req, res, next) => {
     try {
         const employees = await Employee.findAll();
         res.json(employees);
     } catch (err) {
-        res.status(500).send('An error occurred when getting employees.');
-        logger.error('Error employee get', err);
+        next(errorHelper.createHttpError(err, 500, 'An error occurred when getting employees.'));
     }
 };
 
-EmployeeController.addEmployees = async (req, res) => {
+EmployeeController.addEmployees = async (req, res, next) => {
     try {
         const employees = req.body;
         const upsertPromises = [];
@@ -26,14 +25,13 @@ EmployeeController.addEmployees = async (req, res) => {
         });
 
         await Promise.all(upsertPromises);
-        res.send('Employees are successfully inserted!');
+        res.end('Employees are successfully inserted!');
     } catch (err) {
-        res.status(500).send('An error occurred when inserting employees.');
-        logger.error('Error employee post', err);
+        next(errorHelper.createHttpError(err, 500, 'An error occurred when inserting employees.'));
     }
 };
 
-EmployeeController.getStatuses = async (req, res) => {
+EmployeeController.getStatuses = async (req, res, next) => {
     try {
         const allActiveEmployees = await Employee.findAll({
             where: {
@@ -78,8 +76,7 @@ EmployeeController.getStatuses = async (req, res) => {
 
         res.json(employessWithLastTrans);
     } catch (err) {
-        res.status(500).send('An error occurred when getting employee statuses.');
-        logger.error('Error employee post', err);
+        next(errorHelper.createHttpError(err, 500, 'An error occurred when getting employee statuses.'));
     }
 };
 
