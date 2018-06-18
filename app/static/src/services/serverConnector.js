@@ -1,23 +1,23 @@
 export default class ServerConnector {
-  constructor(path) {
-    this.path = path;
-  }
+    constructor(path) {
+        this.path = path;
+    }
 
-  send(req) {
-    const path = `${this.path}${req.path}`;
+    send(req) {
+        const path = `${this.path}${req.path}`;
 
-    const headersObj = Object.assign({
-      'content-type': 'text/plain',
-    }, req.headers);
+        const headersObj = Object.assign({
+            'content-type': 'text/plain',
+        }, req.headers);
 
-    const headers = new Headers(headersObj);
+        const headers = new Headers(headersObj);
 
-    const options = Object.assign({
-      method: 'POST',
-    }, req.options);
+        const options = Object.assign({
+            method: 'POST',
+        }, req.options);
 
-    options.headers = headers;
-    const request = new Request(path, options);
-    return fetch(request).then(res => res.json());
-  }
+        options.headers = headers;
+        const request = new Request(path, options);
+        return fetch(request).then(res => res.json());
+    }
 }

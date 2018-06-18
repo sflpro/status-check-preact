@@ -13,17 +13,17 @@ import App from './components/app';
 import './index.css';
 
 const store = createStore(
-  rootReducer,
-  applyMiddleware(thunkMiddleware),
+    rootReducer,
+    applyMiddleware(thunkMiddleware),
 );
 
 store.dispatch(fetchEmployees());
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <Route component={App} />
-    </Router>
-  </Provider>,
-  document.getElementById('root'),
+    <Provider store={store}>
+        <Router>
+            <Route component={App} />
+        </Router>
+    </Provider>,
+    document.getElementById('root'),
 );
