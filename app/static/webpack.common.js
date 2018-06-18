@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -12,52 +12,52 @@ module.exports = {
             'react-redux',
             'redux',
             'redux-thunk',
-            'date-fns'
-        ]
+            'date-fns',
+        ],
     },
     output: {
         path: `${__dirname}/../public/`,
-        filename: '[name].bundle.js'
+        filename: '[name].bundle.js',
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                use: 'babel-loader'
+                use: 'babel-loader',
             },
             {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                    fallback: 'style-loader',
+                    use: 'css-loader',
+                }),
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 loader: 'file-loader',
                 options: {
                     name: '[path][name].[ext]',
-                    context: `${__dirname}/src`
-                }
+                    context: `${__dirname}/src`,
+                },
             },
             {
                 test: /\.(eot|otf|ttf|woff|woff2)$/,
-                loader: 'file-loader'
-            }
-        ]
+                loader: 'file-loader',
+            },
+        ],
     },
     plugins: [
         new CleanWebpackPlugin(['../public'], {
-            allowExternal: true
+            allowExternal: true,
         }),
         new ExtractTextPlugin('styles.css'),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
+            name: 'vendor',
         }),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'runtime'
-        })
-    ]
-}
+            name: 'runtime',
+        }),
+    ],
+};

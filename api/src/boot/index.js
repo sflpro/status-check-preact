@@ -15,8 +15,6 @@ const PORT = process.env.PORT || 8080;
  * allows to make integrating tools like socket.io easier.
  */
 const server = http.createServer(app);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Log HTTP requests and responses.
@@ -33,7 +31,7 @@ db
         logger.info('Database connected.');
         server.listen(PORT);
     })
-    .catch(error => {
+    .catch((error) => {
         logger.error('Unable to connect to the database: ', error);
         throw error;
     });
@@ -51,3 +49,6 @@ function onError(error) {
 function onListening() {
     logger.info(`Listening on port ${PORT}.`);
 }
+
+server.on('error', onError);
+server.on('listening', onListening);

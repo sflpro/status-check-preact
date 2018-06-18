@@ -1,12 +1,12 @@
-import ServerConnector from "./serverConnector";
+import ServerConnector from './serverConnector';
 
 export default class StaffService extends ServerConnector {
-    constructor(path = "api/staff") {
+    constructor(path = 'api/staff') {
         super(path);
     }
 
     get() {
-        // const headers = new Headers();
+    // const headers = new Headers();
         const options = {
             method: 'GET',
             cache: 'default',

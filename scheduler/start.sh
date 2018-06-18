@@ -2,7 +2,7 @@
 
 if [ $NODE_ENV == 'development' ]
 then
-    npm i -g nodemon;
+    npm install -g nodemon
     nodemon index.js
 else
     node index.js

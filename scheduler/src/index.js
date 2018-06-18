@@ -3,7 +3,7 @@ const xmlrpc = require('xmlrpc');
 const { promisify } = require('util');
 const requestPromise = require('request-promise-native');
 
-const env = process.env;
+const { env } = process;
 
 const xmlRpcClient = xmlrpc.createClient({
     host: env.TIMECARD_HOST,
@@ -49,10 +49,12 @@ function sendEmployees(employees) {
 }
 
 function sendTransactions(transactions) {
-    let tactions = [];
-    transactions.forEach(transactionPerEmployee => {
-        transactionPerEmployee.Transactions.forEach(transaction => {
-            let { Id, Action, DeviceId, Status, InsertDate, OriginalDate } = transaction;
+    const tactions = [];
+    transactions.forEach((transactionPerEmployee) => {
+        transactionPerEmployee.Transactions.forEach((transaction) => {
+            const {
+                Id, Action, DeviceId, Status, InsertDate, OriginalDate,
+            } = transaction;
             tactions.push({
                 id: Id,
                 employeeId: transactionPerEmployee.EmployeeId,
@@ -77,19 +79,19 @@ function start() {
     logger.info('Fetching employees starts');
     let employees;
     fetchEmployees()
-        .then(empls => {
+        .then((empls) => {
             logger.info('Fetching employees succeed');
             employees = empls;
             return empls.map(employee => ({
                 id: employee.Id,
-                name: employee.FullName
-            }))
+                name: employee.FullName,
+            }));
         })
-        .then(empls => {
+        .then((empls) => {
             logger.info('Fetching transaction starts');
             return fetchTransactions(empls);
         })
-        .then(transactions => {
+        .then((transactions) => {
             logger.info('Fetching transaction succeed');
             logger.info('Saving employees and transactions starts');
             return Promise.all([sendEmployees(employees), sendTransactions(transactions)]);
@@ -98,7 +100,7 @@ function start() {
             logger.info('Saving employees and transactions succeed');
             setTimeout(start, env.REQUEST_INTERVAL);
         })
-        .catch(err => {
+        .catch((err) => {
             logger.error('fetching or saving failes', err);
             setTimeout(start, env.REQUEST_INTERVAL);
         });
@@ -106,5 +108,4 @@ function start() {
 
 logger.info('Running jobs start.');
 start();
-
 

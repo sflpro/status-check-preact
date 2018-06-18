@@ -5,15 +5,24 @@ node_js:
 services:
   - docker
 
+install:
+  - export PROJECT_DIR=$PWD
+  - cd $PROJECT_DIR/api
+  - npm i
+  - cd $PROJECT_DIR/scheduler
+  - npm i  
+
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - cd $PROJECT_DIR/api
+  - npm run lint
+  - cd $PROJECT_DIR/scheduler
+  - npm run lint
 
 script:
-  - export PROJECT_DIR=$PWD
   - cd $PROJECT_DIR/logstash
   - ./build.sh
-  - cd $PROJECT_DIR/postgres
+  - cd $PROJECT_DIR/postgres 
   - ./build.sh
   - cd $PROJECT_DIR/scheduler
   - ./build.sh
-

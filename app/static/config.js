@@ -1,5 +1,5 @@
 const config = {
-    sflAvatarUrl: "http://status.sflpro.com/assets/avatars/",
+    sflAvatarUrl: 'http://status.sflpro.com/assets/avatars/',
     b: 2,
 };
 

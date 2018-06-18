@@ -2,8 +2,8 @@
 
 if [ $NODE_ENV == 'development' ]
 then
-    npm i -g nodemon;
-    nodemon boot;
+    npm install -g nodemon
+    nodemon src/boot;
 else
-    node boot;
+    node src/boot;
 fi
