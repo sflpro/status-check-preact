@@ -4,9 +4,14 @@ node_js:
   - "9.5.0"
 services:
   - docker
-
-install:
+cache:
+  directories:
+    - $PWD/api/node_modules
+    - $PWD/scheduler/node_modules
+before_cache:
   - export PROJECT_DIR=$PWD
+
+install:  
   - cd $PROJECT_DIR/api
   - npm i
   - cd $PROJECT_DIR/scheduler
