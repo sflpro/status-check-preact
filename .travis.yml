@@ -7,7 +7,6 @@ services:
 cache:
   directories:
     - /api/node_modules
-    - /app/node_modules
     - /scheduler/node_modules
 
 install:
