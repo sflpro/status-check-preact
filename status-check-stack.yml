@@ -8,14 +8,12 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=/run/secrets/postgres_user
-      - POSTGRES_PASSWORD=/run/secrets/postgres_password
-      - DB_NAME=/run/secrets/db_name
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+      - DB_NAME=statuscheck
       - PGDATA=/var/lib/postgresql/data/pgdata
     secrets:
-      - postgres_user
       - postgres_password
-      - db_name
     deploy:
       replicas: 1
 
@@ -26,10 +24,10 @@ services:
       - REQUEST_INTERVAL=100000
       - REQUEST_FROM=3
       - REQUEST_TO=1
-      - TIMECARD_HOST=/run/secrets/timecard_host
-      - TIMECARD_PATH=/run/secrets/timecard_path
-      - TIMECARD_USER=/run/secrets/timecard_user
-      - TIMECARD_PASS=/run/secrets/timecard_pass
+      - TIMECARD_HOST_FILE=/run/secrets/timecard_host
+      - TIMECARD_PATH_FILE=/run/secrets/timecard_path
+      - TIMECARD_USER_FILE=/run/secrets/timecard_user
+      - TIMECARD_PASS_FILE=/run/secrets/timecard_pass
     secrets:
       - timecard_host
       - timecard_path
@@ -39,12 +37,8 @@ services:
       replicas: 1
 
 secrets:
-  postgres_user:
-    file: postgres_user.txt
   postgres_password:
     file: postgres_password.txt
-  db_name:
-    file: db_name.txt
   timecard_host:
     file: timecard_host.txt
   timecard_path:
