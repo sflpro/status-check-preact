@@ -1,5 +1,5 @@
 # Set the base image to node
-FROM node:alpine
+FROM node:9.5
 
 # Provides cached layer for node_modules
 ADD package.json /tmp/package.json
@@ -12,4 +12,4 @@ WORKDIR /src
 ADD . /src
 
 # Run app using node
-CMD ["/bin/sh", "start.sh"]
+CMD ["/bin/bash", "start.sh"]
