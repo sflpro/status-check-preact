@@ -4,19 +4,28 @@ node_js:
   - "9.5.0"
 services:
   - docker
+cache:
+  directories:
+    - /api/node_modules
+    - /scheduler/node_modules
+    - /app/node_modules
 
 install:
   - export PROJECT_DIR=$PWD
   - cd $PROJECT_DIR/api
   - npm i
   - cd $PROJECT_DIR/scheduler
-  - npm i  
+  - npm i
+  - cd $PROJECT_DIR/app
+  - npm i
 
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - cd $PROJECT_DIR/api
   - npm run lint
   - cd $PROJECT_DIR/scheduler
+  - npm run lint
+  - cd $PROJECT_DIR/app
   - npm run lint
 
 script:
