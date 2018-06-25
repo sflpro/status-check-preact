@@ -15,7 +15,9 @@ install:
   - cd $PROJECT_DIR/api
   - npm i
   - cd $PROJECT_DIR/scheduler
-  - npm i  
+  - npm i
+  - cd $PROJECT_DIR/app
+  - npm i
 
 before_script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
