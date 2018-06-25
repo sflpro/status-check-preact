@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { format, parse, addMilliseconds } from 'date-fns';
 
 import './employees.css';
-import { genEmployeeImgSrc } from '../helpers';
+import { genEmployeeImgSrc, generateLinkTo } from '../helpers';
 
 const Employees = (props) => {
     const { employees } = props;
@@ -15,7 +15,7 @@ const Employees = (props) => {
                 (employees.length > 0)
                     ? employees.map(employee => (
                         <article className="employee" key={employee.id}>
-                            <Link className="employee__wrapper" to={{ pathname: `/employee/${employee.id}`, state: { modal: true } }}>
+                            <Link className="employee__wrapper" to={generateLinkTo(employee.id)}>
                                 <img className="employee__avatar" src={genEmployeeImgSrc(employee.fullName)} alt={employee.fullName} />
                                 <h2 className="employee__name">
                                     {employee.fullName}

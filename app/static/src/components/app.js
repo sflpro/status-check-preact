@@ -5,6 +5,13 @@ import Header from './header/header';
 import Employees from './employees/employees';
 import Modal from './modals/modal';
 
+const getRouteComp = props => (
+    <div>
+        <Header />
+        <Employees filter={props.match.params.filter} />
+    </div>
+);
+
 export default class App extends Component {
     componentWillUpdate(nextProps) {
         const { location } = this.props;
@@ -25,10 +32,7 @@ export default class App extends Component {
                     <Route path="/employee/:id" component={Modal} />
                     <Route
                       path="/:filter"
-                      render={props => (<div>
-                          <Header />
-                          <Employees filter={props.match.params.filter} />
-                      </div>)}
+                      render={getRouteComp}
                     />
                     <Redirect from="/" to="/in" />
                 </Switch>
