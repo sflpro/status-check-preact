@@ -6,17 +6,17 @@ const { getFilteredEmployees } = require('../helpers/employees');
 async function startTransactionsJob() {
     const employees = await getFilteredEmployees();
 
-    logger.info('Fetching transactions starts');
+    logger.info('Fetching Transactions starts.');
 
     const allTransactionsFromStore = await fetchTransactions(employees);
 
-    logger.info('Fetching transactions succeed');
+    logger.info('Fetching Transactions succeed.');
 
-    logger.info('Saving transactions starts');
+    logger.info('Saving Transactions starts.');
 
     await sendTransactions(allTransactionsFromStore);
 
-    logger.info('Saving transactions succeed');
+    logger.info('Saving Transactions succeed.');
 }
 
 module.exports = startTransactionsJob;

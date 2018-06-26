@@ -33,11 +33,11 @@ const filterEmployees = allEmployeesFromStore =>
     }));
 
 const getAllEmployeesFromStore = async () => {
-    logger.info('Fetching employees starts');
+    logger.info('Fetching Employees starts.');
 
     const allEmployeesFromStore = await fetchEmployees();
 
-    logger.info('Fetching employees succeed');
+    logger.info('Fetching Employees succeed.');
 
     return allEmployeesFromStore;
 };

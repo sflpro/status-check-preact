@@ -5,11 +5,11 @@ const { getAllEmployeesFromStore, sendEmployees } = require('../helpers/employee
 async function startEmployeesJob() {
     const allEmployeesFromStore = await getAllEmployeesFromStore();
 
-    logger.info('Saving employees starts');
+    logger.info('Saving Employees starts.');
 
     await sendEmployees(allEmployeesFromStore);
 
-    logger.info('Saving employees succeed');
+    logger.info('Saving Employees succeed.');
 }
 
 module.exports = startEmployeesJob;
