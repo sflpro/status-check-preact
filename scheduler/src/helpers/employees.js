@@ -43,7 +43,6 @@ const getAllEmployeesFromStore = async () => {
 };
 
 const getFilteredEmployees = async () => {
-
     const allEmployeesFromStore = await getAllEmployeesFromStore();
 
     const employees = filterEmployees(allEmployeesFromStore);
