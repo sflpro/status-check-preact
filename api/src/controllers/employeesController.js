@@ -25,7 +25,7 @@ EmployeeController.addEmployees = async (req, res, next) => {
         });
 
         await Promise.all(upsertPromises);
-        res.end('Employees are successfully inserted!');
+        res.status(201).end('Employees are successfully inserted!');
     } catch (err) {
         next(errorHelper.createHttpError(err, 500, 'An error occurred when inserting employees.'));
     }

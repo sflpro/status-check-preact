@@ -18,6 +18,8 @@ services:
       build: ./api
       links:
         - postgres
+      depends_on:
+        - postgres
       expose:
         - "8080"
       volumes:
@@ -36,13 +38,17 @@ services:
       build: ./scheduler
       links:
         - postgres
+      depends_on:
+        - api
+        - postgres
       volumes:
         - ./scheduler/:/src
       environment:
         - API_ENDPOINT=http://api:8080/api
         - NODE_ENV=development
         - LOG_LEVEL=info
-        - REQUEST_INTERVAL=100000
+        - REQUEST_EMPLOYEES_INTERVAL=100000
+        - REQUEST_TRANSACTIONS_INTERVAL=86400000
         - REQUEST_FROM=3
         - REQUEST_TO=1
       env_file: ~/status-check.env
