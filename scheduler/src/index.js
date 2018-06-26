@@ -5,29 +5,29 @@ const { wait } = require('./helpers/utils');
 
 const { env } = process;
 
-const runLoopTransactionsJob = async () => {
+const loopTransactionsJob = async () => {
     try {
         logger.info('Scheduling Transactions job.');
         await wait(env.REQUEST_TRANSACTIONS_INTERVAL);
         logger.info('Starting Transactions job.');
         await startTransactionsJob();
-        runLoopTransactionsJob();
+        loopTransactionsJob();
     } catch (err) {
         logger.error('Error during Transactions job', err);
-        runLoopTransactionsJob();
+        loopTransactionsJob();
     }
 };
 
-const runLoopEmployeesJob = async () => {
+const loopEmployeesJob = async () => {
     try {
         logger.info('Scheduling Employees job.');
         await wait(env.REQUEST_EMPLOYEES_INTERVAL);
         logger.info('Starting Employees job.');
         await startEmployeesJob();
-        runLoopEmployeesJob();
+        loopEmployeesJob();
     } catch (err) {
         logger.error('Error during Employees job.', err);
-        runLoopEmployeesJob();
+        loopEmployeesJob();
     }
 };
 
@@ -36,8 +36,8 @@ const startScheduler = async () => {
         logger.info('Staring new scheduler.');
         logger.info('Staring First Employees job.');
         await startEmployeesJob();
-        runLoopEmployeesJob();
-        runLoopTransactionsJob();
+        loopEmployeesJob();
+        loopTransactionsJob();
     } catch (err) {
         logger.error('Error during start Scheduler.', err);
         startScheduler();
