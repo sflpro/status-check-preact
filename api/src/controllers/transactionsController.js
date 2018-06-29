@@ -21,7 +21,7 @@ TransactionsControllers.addTransactions = async (req, res, next) => {
             upsertPromises.push(Transaction.upsert(transaction));
         });
         await Promise.all(upsertPromises);
-        res.end('Transactions are successfully inserted!');
+        res.status(201).end('Transactions are successfully inserted!');
     } catch (err) {
         next(errorHelper.createHttpError(err, 500, 'An error occurred when inserting transactions.'));
     }

@@ -21,7 +21,8 @@ services:
     image: sflpro/status-check-scheduler:latest
     environment:
       - API_ENDPOINT=http://api:8080/api
-      - REQUEST_INTERVAL=100000
+      - REQUEST_EMPLOYEES_INTERVAL=86400000
+      - REQUEST_TRANSACTIONS_INTERVAL=100000
       - REQUEST_FROM=3
       - REQUEST_TO=1
       - TIMECARD_HOST_FILE=/run/secrets/timecard_host

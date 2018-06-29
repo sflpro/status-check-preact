@@ -1,111 +1,48 @@
 const logger = require('./logger');
-const xmlrpc = require('xmlrpc');
-const { promisify } = require('util');
-const requestPromise = require('request-promise-native');
+const startEmployeesJob = require('./jobs/employees');
+const startTransactionsJob = require('./jobs/transactions');
+const { wait } = require('./helpers/utils');
 
 const { env } = process;
 
-const xmlRpcClient = xmlrpc.createClient({
-    host: env.TIMECARD_HOST,
-    port: 3003,
-    path: env.TIMECARD_PATH,
-    basic_auth: {
-        user: env.TIMECARD_USER,
-        pass: env.TIMECARD_PASS,
-    },
-});
+const loopTransactionsJob = async () => {
+    try {
+        logger.info('Scheduling Transactions job.');
+        await wait(env.REQUEST_TRANSACTIONS_INTERVAL);
+        logger.info('Starting Transactions job.');
+        await startTransactionsJob();
+        loopTransactionsJob();
+    } catch (err) {
+        logger.error('Error during Transactions job', err);
+        loopTransactionsJob();
+    }
+};
 
-const methodCall = promisify(xmlRpcClient.methodCall.bind(xmlRpcClient));
+const loopEmployeesJob = async () => {
+    try {
+        logger.info('Scheduling Employees job.');
+        await wait(env.REQUEST_EMPLOYEES_INTERVAL);
+        logger.info('Starting Employees job.');
+        await startEmployeesJob();
+        loopEmployeesJob();
+    } catch (err) {
+        logger.error('Error during Employees job.', err);
+        loopEmployeesJob();
+    }
+};
 
-function fetchEmployees() {
-    return methodCall('GetAllEmployeesShort', []);
-}
+const startScheduler = async () => {
+    try {
+        logger.info('Staring new scheduler.');
+        logger.info('Staring First Employees job.');
+        await startEmployeesJob();
+        loopEmployeesJob();
+        loopTransactionsJob();
+    } catch (err) {
+        logger.error('Error during start Scheduler.', err);
+        startScheduler();
+    }
+};
 
-function fetchTransactions(employees) {
-    const startDate = new Date();
-    const endDate = new Date();
-    startDate.setDate(startDate.getDate() - env.REQUEST_FROM);
-    endDate.setDate(endDate.getDate() + env.REQUEST_TO);
-    return methodCall('GetTransactions', [employees.map(employee => employee.id), startDate, endDate]);
-}
-
-function sendEmployees(employees) {
-    const empls = employees.map(employee => ({
-        code: employee.Code,
-        badge: employee.Badge,
-        firstName: employee.Name,
-        middleName: employee.MiddleName,
-        lastName: employee.LastName,
-        fullName: employee.FullName,
-        active: employee.Active,
-    }));
-    const options = {
-        method: 'POST',
-        uri: `${env.API_ENDPOINT}/employees`,
-        body: empls,
-        json: true,
-    };
-    return requestPromise(options);
-}
-
-function sendTransactions(transactions) {
-    const tactions = [];
-    transactions.forEach((transactionPerEmployee) => {
-        transactionPerEmployee.Transactions.forEach((transaction) => {
-            const {
-                Id, Action, DeviceId, Status, InsertDate, OriginalDate,
-            } = transaction;
-            tactions.push({
-                id: Id,
-                employeeId: transactionPerEmployee.EmployeeId,
-                action: Action,
-                deviceId: DeviceId,
-                status: Status,
-                insertDate: InsertDate,
-                originalDate: OriginalDate,
-            });
-        });
-    });
-    const options = {
-        method: 'POST',
-        uri: `${env.API_ENDPOINT}/transactions`,
-        body: tactions,
-        json: true,
-    };
-    return requestPromise(options);
-}
-
-function start() {
-    logger.info('Fetching employees starts');
-    let employees;
-    fetchEmployees()
-        .then((empls) => {
-            logger.info('Fetching employees succeed');
-            employees = empls;
-            return empls.map(employee => ({
-                id: employee.Id,
-                name: employee.FullName,
-            }));
-        })
-        .then((empls) => {
-            logger.info('Fetching transaction starts');
-            return fetchTransactions(empls);
-        })
-        .then((transactions) => {
-            logger.info('Fetching transaction succeed');
-            logger.info('Saving employees and transactions starts');
-            return Promise.all([sendEmployees(employees), sendTransactions(transactions)]);
-        })
-        .then(() => {
-            logger.info('Saving employees and transactions succeed');
-            setTimeout(start, env.REQUEST_INTERVAL);
-        })
-        .catch((err) => {
-            logger.error('fetching or saving failes', err);
-            setTimeout(start, env.REQUEST_INTERVAL);
-        });
-}
-
-logger.info('Running jobs start.');
-start();
+startScheduler();
 
